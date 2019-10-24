@@ -21,6 +21,10 @@ class CustomFilters:
     def callback_query(arg: str):
         def f(flt, query: CallbackQuery):
             if flt.data in query.data:
+                regex = re.compile(r"\+(.*)")
+                payload = re.search(regex, query.data).group(1)
+                query.payload = payload or None
+
                 return True
             else:
                 return False

@@ -5,3 +5,4 @@ venv/
 *.session-journal
 __pycache__/
 torrentbot.ini
+unknown_errors.txt

@@ -12,13 +12,15 @@ def make_torrent_buttons(torrent_hash):
     buttons = [
         [
             InlineKeyboardButton("Resume", f"resume+{torrent_hash}"),
-            InlineKeyboardButton("Pause", f"pause+{torrent_hash}")
-        ],
-        [
+            InlineKeyboardButton("Pause", f"pause+{torrent_hash}"),
             InlineKeyboardButton("Delete", f"delete+{torrent_hash}"),
-            InlineKeyboardButton("Update", f"update+{torrent_hash}"),
         ],
         [
+            InlineKeyboardButton(f"{Emoji.UP_ARROW} Priority", f"incprio+{torrent_hash}"),
+            InlineKeyboardButton(f"{Emoji.DOWN_ARROW} Priority", f"decprio+{torrent_hash}"),
+        ],
+        [
+            InlineKeyboardButton("Update", f"update+{torrent_hash}"),
             InlineKeyboardButton("Back", f"back"),
         ]
     ]
