@@ -4,7 +4,7 @@ from torrentbot import CMD_HELP
 
 
 @TorrentBot.on_message(Filters.command("help"))
-def module_help(bot, message: Message):
+async def module_help(bot, message: Message):
     cmd = message.command
 
     if len(cmd) > 1:
@@ -12,13 +12,13 @@ def module_help(bot, message: Message):
     elif message.reply_to_message and len(cmd) is 1:
         help_arg = message.reply_to_message.text
     elif not message.reply_to_message and len(cmd) is 1:
-        message.reply("Please specify which module you want help for!! \nUsage: .help <module_name>", parse_mode=None)
+        await message.reply("Please specify which module you want help for!! \nUsage: .help <module_name>", parse_mode=None)
 
         all_commands = ""
         for x in CMD_HELP:
             all_commands += f"`{str(x)}`\n"
 
-        message.reply(all_commands)
+        await message.reply(all_commands)
         return
 
     if help_arg:
@@ -30,9 +30,9 @@ def module_help(bot, message: Message):
             for x in commands:
                 this_command += f"{str(commands[x]['command'])}: {str(commands[x]['description'])}\n\n"
 
-            message.reply(this_command)
+            await message.reply(this_command)
         else:
-            message.reply('`Please specify a valid module name.`')
+            await message.reply('`Please specify a valid module name.`')
 
 
 def add_command_help(module_name: str, commands: list):

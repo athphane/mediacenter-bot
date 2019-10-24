@@ -19,10 +19,10 @@ class TorrentBot(Client):
             workdir="."
         )
 
-    def start(self):
-        super().start()
+    async def start(self):
+        await super().start()
         print(f"TorrentBot started. Hi.")
 
-    def stop(self):
-        super().stop()
+    async def stop(self):
+        await super().stop()
         print("TorrentBot stopped. Bye.")

@@ -3,19 +3,19 @@ from pyrogram import Filters, Message
 from torrentbot.plugins.help import add_command_help
 
 
-def restart(bot, message: Message):
-    bot.restart()
-    message.reply("Restarted!")
+async def restart(bot: TorrentBot, message: Message):
+    await bot.restart()
+    await message.reply("Restarted!")
 
 
 @TorrentBot.on_message(Filters.command("start"))
-def repo(bot, message: Message):
-    message.reply("Welcome to TorrentBot! I help you control your qBittorrent client.")
+async def repo(bot, message: Message):
+    await message.reply("Welcome to TorrentBot! I help you control your qBittorrent client.")
 
 
 @TorrentBot.on_message(Filters.command("restart"))
-def real_restart(bot, message: Message):
-    message.reply("Restarting TorrentBot.")
+async def real_restart(bot, message: Message):
+    await message.reply("Restarting TorrentBot.")
     from threading import Thread
     Thread(target=restart, args=(bot, message)).start()
 

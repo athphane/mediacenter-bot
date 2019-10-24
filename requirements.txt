@@ -1,8 +1,4 @@
 tgcrypto
-pyrogram
+https://github.com/pyrogram/pyrogram/archive/asyncio.zip
 requests
 urllib3
-speedtest-cli
-python-dotenv
-pymongo
-dnspython

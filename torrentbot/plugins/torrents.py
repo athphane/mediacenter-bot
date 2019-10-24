@@ -27,18 +27,18 @@ def make_torrent_buttons(torrent_hash):
 
 
 @TorrentBot.on_message(Filters.command("list"))
-def send_torrent_list(bot, message: Message):
+async def send_torrent_list(bot, message: Message):
     text = ""
     count = 1
     for x in QBT().torrents():
         text += f"{count}. {x['name']}\n\n"
         count += 1
 
-    message.reply(text)
+    await message.reply(text)
 
 
 @TorrentBot.on_message(Filters.command("torrents"))
-def torrents(bot, message: Message, **kwargs):
+async def torrents(bot, message: Message, **kwargs):
     buttons = []
     for x in QBT().torrents():
         button = [
@@ -50,37 +50,37 @@ def torrents(bot, message: Message, **kwargs):
         buttons.append(button)
 
     if kwargs.get('back'):
-        message.edit_text("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
+        await message.edit_text("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
     else:
-        message.reply("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
+        await message.reply("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
 
 
 @TorrentBot.on_message(Filters.command("add"))
-def add_torrent(bot, message: Message):
+async def add_torrent(bot, message: Message):
     try:
         torrent_link = message.command[1]
         added_torrent = QBT().add_torrent(torrent_link)
 
         if added_torrent == "Ok.":
-            message.reply(f"**Torrent Added Successfully! {Emoji.PARTY_POPPER}**")
+            await message.reply(f"**Torrent Added Successfully! {Emoji.PARTY_POPPER}**")
         else:
-            message.reply(f"Either that was an incorrect torrent link or you just sent some gibberish "
+            await message.reply(f"Either that was an incorrect torrent link or you just sent some gibberish "
                           f"{Emoji.FACE_VOMITING} "
                           f"Nothing I can do to fix that {Emoji.MAN_SHRUGGING_MEDIUM_LIGHT_SKIN_TONE}")
 
     except IndexError:
-        message.reply("Please send a the link to the torrent after the command")
+        await message.reply("Please send a the link to the torrent after the command")
 
 
 @TorrentBot.on_callback_query(CustomFilters.callback_query('torrent'))
-def torrent(client, callback: CallbackQuery, **kwargs):
+async def torrent(client, callback: CallbackQuery, **kwargs):
     if kwargs.get('torrent_hash'):
         torrent_hash = kwargs.get('torrent_hash')
     else:
         torrent_hash = callback.data[8:]
 
     if kwargs.get('update') and (False if kwargs.get('answer') else True):
-        callback.answer("Updating...")
+        await callback.answer("Updating...")
 
     if kwargs.get('update'):
         sleep(3)
@@ -111,15 +111,15 @@ def torrent(client, callback: CallbackQuery, **kwargs):
     buttons = make_torrent_buttons(torrent_hash)
 
     try:
-        callback.edit_message_text(
+        await callback.edit_message_text(
             constructed_message,
             reply_markup=InlineKeyboardMarkup(buttons)
         )
     except pyro_errors.MessageNotModified:
-        callback.answer("No change")
-        message = callback.message.reply("Torrent details have not changed")
+        await callback.answer("No change")
+        message = await callback.message.reply("Torrent details have not changed")
         sleep(2)
-        message.delete()
+        await message.delete()
 
 
 # Command help section
