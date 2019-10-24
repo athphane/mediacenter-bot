@@ -40,7 +40,13 @@ async def send_torrent_list(bot, message: Message):
 @TorrentBot.on_message(Filters.command("torrents"))
 async def torrents(bot, message: Message, **kwargs):
     buttons = []
-    for x in QBT().torrents():
+
+    torrents = QBT().torrents()
+    if len(torrents) == 0:
+        await message.reply(f"**You have no torrents!** {Emoji.EXCLAMATION_MARK}")
+        return
+
+    for x in torrents:
         button = [
             InlineKeyboardButton(
                 text=x['name'],

@@ -113,11 +113,11 @@ class TorrentClient:
         return self.add_all_info(properties, torrent_hash)
 
     def delete_torrent(self, torrent_hash):
-        properties = self._get(f'torrents/delete?hashes={torrent_hash}')
+        properties = self._get(f'torrents/delete?hashes={torrent_hash}&deleteFiles=false')
         return self.add_all_info(properties, torrent_hash)
 
     def delete_torrent_files(self, torrent_hash):
-        properties = self._get(f'torrents/delete?hashes={torrent_hash}')
+        properties = self._get(f'torrents/delete?hashes={torrent_hash}&deleteFiles=true')
         return self.add_all_info(properties, torrent_hash)
 
     def add_torrent(self, link):
