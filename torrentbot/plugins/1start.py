@@ -3,21 +3,21 @@ from pyrogram import Filters, Message
 from torrentbot.plugins.help import add_command_help
 
 
-async def restart(bot: TorrentBot, message: Message):
-    await bot.restart()
-    await message.reply("Restarted!")
-
-
 @TorrentBot.on_message(Filters.command("start"))
 async def repo(bot, message: Message):
     await message.reply("Welcome to TorrentBot! I help you control your qBittorrent client.")
 
 
+async def restart(bot: TorrentBot, message: Message):
+    await bot.restart()
+    await message.reply("Restarted!")
+
+
 @TorrentBot.on_message(Filters.command("restart"))
 async def real_restart(bot, message: Message):
     await message.reply("Restarting TorrentBot.")
-    from threading import Thread
-    Thread(target=restart, args=(bot, message)).start()
+    import asyncio
+    asyncio.get_event_loop().create_task(restart(bot, message))
 
 
 # Command help section
