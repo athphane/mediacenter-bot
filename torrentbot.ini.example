@@ -1,0 +1,12 @@
+[pyrogram]
+api_id = 123456
+api_hash = super-secret-api-hash
+
+[torrentbot]
+bot_token = le-bot-token
+users = [list of users that can use this bot.]
+
+[qbittorrent]
+qbt_url = http://localhost:8080
+qbt_user = admin
+qbt_password = admin
