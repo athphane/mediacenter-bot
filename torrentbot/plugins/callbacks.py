@@ -19,7 +19,7 @@ async def update(client, callback: CallbackQuery):
 
 @TorrentBot.on_callback_query(CustomFilters.callback_query('resume'))
 async def resume_torrent(client, callback: CallbackQuery):
-    torrent_hash = callback.data[7:]
+    torrent_hash = callback.payload
     QBT().resume_torrent(torrent_hash)
     await callback.answer("Torrent Resumed")
     await torrent(client, callback, torrent_hash=torrent_hash, update=True, answer=False)
@@ -27,7 +27,7 @@ async def resume_torrent(client, callback: CallbackQuery):
 
 @TorrentBot.on_callback_query(CustomFilters.callback_query('pause'))
 async def pause_torrent(client, callback: CallbackQuery):
-    torrent_hash = callback.data[6:]
+    torrent_hash = callback.payload
     QBT().pause_torrent(torrent_hash)
     await callback.answer("Torrent Paused")
     await torrent(client, callback, torrent_hash=torrent_hash, update=True, answer=False)
@@ -45,7 +45,7 @@ async def show_delete_options(client, callback: CallbackQuery):
 
         return buttons
 
-    torrent_hash = callback.data[7:]
+    torrent_hash = callback.payload
     await callback.edit_message_text(
         "How do you want to delete this torrent?",
         reply_markup=InlineKeyboardMarkup(delete_buttons(torrent_hash))
@@ -54,7 +54,7 @@ async def show_delete_options(client, callback: CallbackQuery):
 
 @TorrentBot.on_callback_query(CustomFilters.callback_query('deltor'))
 async def delete_torrent(client, callback: CallbackQuery, **kwargs):
-    torrent_hash = kwargs.get('torrent_hash') if kwargs.get('torrent_hash') else callback.data[7:]
+    torrent_hash = kwargs.get('torrent_hash') if kwargs.get('torrent_hash') else callback.payload
     try:
         if kwargs.get('files'):
             QBT().delete_torrent_files(torrent_hash)
@@ -75,5 +75,5 @@ async def delete_torrent(client, callback: CallbackQuery, **kwargs):
 
 @TorrentBot.on_callback_query(CustomFilters.callback_query('delfile'))
 async def delete_only_torrent(client, callback: CallbackQuery):
-    torrent_hash = callback.data[8:]
+    torrent_hash = callback.payload
     await delete_torrent(client, callback, torrent_hash=torrent_hash, files=True)

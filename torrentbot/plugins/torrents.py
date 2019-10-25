@@ -2,7 +2,7 @@ from torrentbot.torrentbot import TorrentBot
 from pyrogram import Filters, Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, Emoji
 import pyrogram.errors as pyro_errors
 from torrentbot.helpers.converters import human_bytes, human_unix_time, time_delta
-from time import sleep, time
+from time import sleep
 from torrentbot.helpers.custom_filters import CustomFilters
 from torrentbot.plugins.help import add_command_help
 from torrentbot.helpers.Qbittorrent import TorrentClient as QBT
@@ -28,18 +28,22 @@ def make_torrent_buttons(torrent_hash):
     return buttons
 
 
-@TorrentBot.on_message(Filters.command("list"))
+@TorrentBot.on_message(CustomFilters.command("list"))
 async def send_torrent_list(bot, message: Message):
-    text = ""
-    count = 1
-    for x in QBT().torrents():
-        text += f"{count}. {x['name']}\n\n"
-        count += 1
+    torrents = QBT().torrents()
+    if not len(torrents) == 0:
+        text = ""
+        count = 1
+        for x in QBT().torrents():
+            text += f"{count}. {x['name']}\n\n"
+            count += 1
 
-    await message.reply(text)
+        await message.reply(text)
+    else:
+        await message.reply(f"**You have no torrents!** {Emoji.EXCLAMATION_MARK}")
 
 
-@TorrentBot.on_message(Filters.command("torrents"))
+@TorrentBot.on_message(CustomFilters.command("torrents"))
 async def torrents(bot, message: Message, **kwargs):
     buttons = []
 
@@ -63,7 +67,7 @@ async def torrents(bot, message: Message, **kwargs):
         await message.reply("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
 
 
-@TorrentBot.on_message(Filters.command("add"))
+@TorrentBot.on_message(CustomFilters.command("add"))
 async def add_torrent(bot, message: Message):
     try:
         torrent_link = message.command[1]

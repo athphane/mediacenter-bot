@@ -1,9 +1,10 @@
 from torrentbot.torrentbot import TorrentBot
-from pyrogram import Filters, Message
+from pyrogram import Message
 from torrentbot import CMD_HELP
+from torrentbot.helpers.custom_filters import CustomFilters
 
 
-@TorrentBot.on_message(Filters.command("help"))
+@TorrentBot.on_message(CustomFilters.command("help"))
 async def module_help(bot, message: Message):
     cmd = message.command
 
@@ -44,8 +45,7 @@ def add_command_help(module_name: str, commands: list):
     temp_dict = {}
     count = 1
     for x in commands:
-        another_dict = {'command': x[0], 'description': x[1]}
-        temp_dict[count] = another_dict
+        temp_dict[count] = {'command': x[0], 'description': x[1]}
         count += 1
 
     CMD_HELP[module_name] = temp_dict

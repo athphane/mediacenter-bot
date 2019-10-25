@@ -7,7 +7,7 @@ NOT_ALLOWED_MESSAGE = (f'**{Emoji.FIRE} You are not allowed! {Emoji.FIRE}\n'
                        f'{Emoji.FIRE} This incident will be reported! {Emoji.FIRE}**')
 
 
-@TorrentBot.on_message(~Filters.user(ALLOWED_USERS), group=-1)
+@TorrentBot.on_message(~Filters.user(ALLOWED_USERS) | Filters.group, group=-1)
 async def stop_user_from_doing_anything(bot, message: Message):
     """
     Checks if user is allowed to use TorrentBot
@@ -16,7 +16,7 @@ async def stop_user_from_doing_anything(bot, message: Message):
     message.stop_propagation()
 
 
-@TorrentBot.on_callback_query(~Filters.user(ALLOWED_USERS), group=-1)
+@TorrentBot.on_callback_query(~Filters.user(ALLOWED_USERS) | Filters.group, group=-1)
 async def stop_user_from_doing_anything_callback(client, callback: CallbackQuery):
     """
     Checks if user is allowed to use TorrentBot via CallbackQuery

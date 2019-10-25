@@ -1,20 +1,21 @@
 from torrentbot.torrentbot import TorrentBot
-from pyrogram import Filters, Message
+from pyrogram import Message
 from torrentbot.plugins.help import add_command_help
+from torrentbot.helpers.custom_filters import CustomFilters
 
 
-@TorrentBot.on_message(Filters.command("start"))
-async def repo(bot, message: Message):
+@TorrentBot.on_message(CustomFilters.command("start"))
+async def start(bot, message: Message):
     await message.reply("Welcome to TorrentBot! I help you control your qBittorrent client.")
 
 
-async def restart(bot: TorrentBot, message: Message):
+async def real_restart(bot: TorrentBot, message: Message):
     await bot.restart()
     await message.reply("Restarted!")
 
 
-@TorrentBot.on_message(Filters.command("restart"))
-async def real_restart(bot, message: Message):
+@TorrentBot.on_message(CustomFilters.command("restart"))
+async def restart(bot, message: Message):
     await message.reply("Restarting TorrentBot.")
     import asyncio
     asyncio.get_event_loop().create_task(restart(bot, message))
