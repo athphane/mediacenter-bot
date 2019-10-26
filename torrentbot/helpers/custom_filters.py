@@ -1,7 +1,6 @@
+from pyrogram import Filters, CallbackQuery
 import re
-from pyrogram import Filters, Message, CallbackQuery
 import shlex
-
 from torrentbot import BOT_USERNAME
 
 
@@ -17,8 +16,10 @@ class CustomFilters:
             in Pyrogram. The Pyrogram one does not support /command@botname type commands,
             so this custom filter enables that throughout all groups and private chats.
 
-            This filter works exactly the same as the original command filter.. Command
-            arguments are given to user as message.command
+            This filter works exactly the same as the original command filter even with support for multiple command
+            prefixes and case sensitivity.
+
+            Command arguments are given to user as message.command
         """
 
         def func(flt, message):
@@ -59,16 +60,29 @@ class CustomFilters:
         )
 
     @staticmethod
-    def callback_query(arg: str):
-        def f(flt, query: CallbackQuery):
-            if flt.data in query.data:
-                search =re.search(re.compile(r"\+{1}(.*)"), query.data)
-                if search:
-                    query.payload = search.group(1)
-                else:
-                    query.payload = None
-                return True
+    def callback_query(arg: str, payload=True):
+        """
+        Accepts arg at all times.
+        if payload is True, extract payload from callback and assign to callback.payload
+        if payload is False, only check if callback exactly matches argument
+        """
+        def func(flt, query: CallbackQuery):
+            if payload:
+                thing = "{}\+"
+                if re.search(re.compile(thing.format(flt.data)), query.data):
+                    search = re.search(re.compile(r"\+{1}(.*)"), query.data)
+                    if search:
+                        query.payload = search.group(1)
+                    else:
+                        query.payload = None
+
+                    return True
+
+                return False
             else:
+                if flt.data == query.data:
+                    return True
+
                 return False
 
-        return Filters.create(f, "CustomCallbackQueryFilter", data=arg)
+        return Filters.create(func, "CustomCallbackQueryFilter", data=arg)

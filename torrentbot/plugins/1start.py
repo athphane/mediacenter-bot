@@ -1,5 +1,6 @@
+from torrentbot import ALLOWED_USERS
 from torrentbot.torrentbot import TorrentBot
-from pyrogram import Message
+from pyrogram import Message, Filters
 from torrentbot.plugins.help import add_command_help
 from torrentbot.helpers.custom_filters import CustomFilters
 
@@ -14,11 +15,11 @@ async def real_restart(bot: TorrentBot, message: Message):
     await message.reply("Restarted!")
 
 
-@TorrentBot.on_message(CustomFilters.command("restart"))
+@TorrentBot.on_message(Filters.user(ALLOWED_USERS) & CustomFilters.command("restart"))
 async def restart(bot, message: Message):
     await message.reply("Restarting TorrentBot.")
     import asyncio
-    asyncio.get_event_loop().create_task(restart(bot, message))
+    asyncio.get_event_loop().create_task(real_restart(bot, message))
 
 
 # Command help section

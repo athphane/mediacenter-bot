@@ -6,7 +6,7 @@ from torrentbot.helpers.Qbittorrent import TorrentClient as QBT
 import time
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('back'))
+@TorrentBot.on_callback_query(CustomFilters.callback_query('back', payload=False))
 async def back(client, callback: CallbackQuery):
     await torrents(client, callback.message, back=True)
 
@@ -33,7 +33,7 @@ async def pause_torrent(client, callback: CallbackQuery):
     await torrent(client, callback, torrent_hash=torrent_hash, update=True, answer=False)
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('delete'))
+@TorrentBot.on_callback_query(CustomFilters.callback_query('delete_tor'))
 async def show_delete_options(client, callback: CallbackQuery):
     def delete_buttons(torrent_hash):
         buttons = [
@@ -77,3 +77,62 @@ async def delete_torrent(client, callback: CallbackQuery, **kwargs):
 async def delete_only_torrent(client, callback: CallbackQuery):
     torrent_hash = callback.payload
     await delete_torrent(client, callback, torrent_hash=torrent_hash, files=True)
+
+
+@TorrentBot.on_callback_query(CustomFilters.callback_query('pause_all', payload=False))
+async def pause_all(client, callback: CallbackQuery):
+    try:
+        print("hits")
+        QBT().pause_all()
+        await callback.answer("Pausing all torrents.")
+    except:
+        await callback.answer("An error occurred..")
+        await callback.edit_message_text("An error occurred. Please retry later..")
+
+
+@TorrentBot.on_callback_query(CustomFilters.callback_query('resume_all', payload=False))
+async def resume_all(client, callback: CallbackQuery):
+    try:
+        QBT().resume_all()
+        await callback.answer("Resuming all torrents.")
+    except:
+        await callback.answer("An error occurred..")
+        await callback.edit_message_text("An error occurred. Please retry later..")
+
+
+@TorrentBot.on_callback_query(CustomFilters.callback_query('incprio'))
+async def increment_priority(client, callback: CallbackQuery):
+    torrent_hash = callback.payload
+    try:
+        QBT().increase_priority(torrent_hash)
+        await callback.answer("Torrent Priority Increased")
+        await torrent(client, callback, torrent_hash=torrent_hash, update=True, answer=False)
+    except:
+        await callback.answer("Something went wrong.")
+
+
+@TorrentBot.on_callback_query(CustomFilters.callback_query('decprio'))
+async def decrement_priority(client, callback: CallbackQuery):
+    torrent_hash = callback.payload
+    try:
+        QBT().decrease_priority(torrent_hash)
+        await callback.answer("Torrent Priority Decreased")
+        await torrent(client, callback, torrent_hash=torrent_hash, update=True, answer=False)
+    except:
+        await callback.answer("Something went wrong.")
+
+
+@TorrentBot.on_callback_query(CustomFilters.callback_query('priority'))
+async def torrent_priorities(client, callback: CallbackQuery):
+    torrent_hash = callback.payload
+
+    buttons = [
+        [
+            InlineKeyboardButton(f"{Emoji.UP_ARROW} Priority", f"incprio+{torrent_hash}"),
+            InlineKeyboardButton(f"{Emoji.DOWN_ARROW} Priority", f"decprio+{torrent_hash}"),
+        ],
+    ]
+
+    await callback.edit_message_reply_markup(
+        InlineKeyboardMarkup(buttons)
+    )

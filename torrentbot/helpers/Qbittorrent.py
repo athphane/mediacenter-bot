@@ -131,3 +131,21 @@ class TorrentClient:
         for x in self.torrents():
             if x['hash'] == torrent_hash:
                 return x['name']
+
+    def pause_all(self):
+        return self._get(f'torrents/pause?hashes=all')
+
+    def resume_all(self):
+        return self._get(f'torrents/resume?hashes=all')
+
+    def increase_priority(self, torrent_hash):
+        properties = self._get(f'torrents/increasePrio?hashes={torrent_hash}')
+        return self.add_all_info(properties, torrent_hash)
+
+    def decrease_priority(self, torrent_hash):
+        properties = self._get(f'torrents/decreasePrio?hashes={torrent_hash}')
+        return self.add_all_info(properties, torrent_hash)
+
+    def top_priority(self, torrent_hash):
+        properties = self._get(f'torrents/topPrio?hashes={torrent_hash}')
+        return self.add_all_info(properties, torrent_hash)

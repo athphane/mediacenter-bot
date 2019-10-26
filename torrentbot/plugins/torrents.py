@@ -1,5 +1,5 @@
 from torrentbot.torrentbot import TorrentBot
-from pyrogram import Filters, Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, Emoji
+from pyrogram import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, Emoji
 import pyrogram.errors as pyro_errors
 from torrentbot.helpers.converters import human_bytes, human_unix_time, time_delta
 from time import sleep
@@ -11,13 +11,12 @@ from torrentbot.helpers.Qbittorrent import TorrentClient as QBT
 def make_torrent_buttons(torrent_hash):
     buttons = [
         [
-            InlineKeyboardButton("Resume", f"resume+{torrent_hash}"),
-            InlineKeyboardButton("Pause", f"pause+{torrent_hash}"),
-            InlineKeyboardButton("Delete", f"delete+{torrent_hash}"),
+            InlineKeyboardButton("Resume", f"resume_tor+{torrent_hash}"),
+            InlineKeyboardButton("Pause", f"pause_tor+{torrent_hash}"),
+            InlineKeyboardButton("Delete", f"delete_tor+{torrent_hash}"),
         ],
         [
-            InlineKeyboardButton(f"{Emoji.UP_ARROW} Priority", f"incprio+{torrent_hash}"),
-            InlineKeyboardButton(f"{Emoji.DOWN_ARROW} Priority", f"decprio+{torrent_hash}"),
+            InlineKeyboardButton("Priority", f"priority+{torrent_hash}"),
         ],
         [
             InlineKeyboardButton("Update", f"update+{torrent_hash}"),
@@ -67,29 +66,12 @@ async def torrents(bot, message: Message, **kwargs):
         await message.reply("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
 
 
-@TorrentBot.on_message(CustomFilters.command("add"))
-async def add_torrent(bot, message: Message):
-    try:
-        torrent_link = message.command[1]
-        added_torrent = QBT().add_torrent(torrent_link)
-
-        if added_torrent == "Ok.":
-            await message.reply(f"**Torrent Added Successfully! {Emoji.PARTY_POPPER}**")
-        else:
-            await message.reply(f"Either that was an incorrect torrent link or you just sent some gibberish "
-                          f"{Emoji.FACE_VOMITING} "
-                          f"Nothing I can do to fix that {Emoji.MAN_SHRUGGING_MEDIUM_LIGHT_SKIN_TONE}")
-
-    except IndexError:
-        await message.reply("Please send a the link to the torrent after the command")
-
-
 @TorrentBot.on_callback_query(CustomFilters.callback_query('torrent'))
 async def torrent(client, callback: CallbackQuery, **kwargs):
     if kwargs.get('torrent_hash'):
         torrent_hash = kwargs.get('torrent_hash')
     else:
-        torrent_hash = callback.data[8:]
+        torrent_hash = callback.payload
 
     if kwargs.get('update') and (False if kwargs.get('answer') else True):
         await callback.answer("Updating...")
@@ -99,16 +81,19 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
 
     torrent_details = QBT().single_torrent(torrent_hash)
     completed_on = human_unix_time(torrent_details['completion_date'])
-
+    completed_on = "Incomplete" if torrent_details['completion_date'] == -1 else completed_on
+    priority_level = torrent_details['priority'] if torrent_details['priority'] != -1 else None
+    progress = round(float(torrent_details['progress'] * 100), 2) if torrent_details['progress'] else 0
+    total_size = human_bytes(torrent_details['total_size']) if torrent_details['total_size'] != -1 or 0 else 0
     constructed_message = (
         f"**Torrent**:\n"
-        f"__{QBT().find_torrent_name(torrent_hash)}__\n\n"
+        f"{str(priority_level)+'. ' if priority_level else None}__{QBT().find_torrent_name(torrent_hash)}__\n\n"
 
         f"**Status**:\n"
-        f"__{torrent_details['state']}__\n\n"
+        f"__{torrent_details['state'].title()}__\n\n"
 
         f"**Size**:\n"
-        f"__{human_bytes(torrent_details['total_size'])}__\n\n"
+        f"__{total_size}__ ({progress}%)\n\n"
 
         f"**Category**:\n"
         f"__{torrent_details['category'] if torrent_details['category'] else 'None'}__\n\n"
@@ -134,7 +119,38 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
         await message.delete()
 
 
-# Command help section
+@TorrentBot.on_message(CustomFilters.command("add"))
+async def add_torrent(bot, message: Message):
+    try:
+        torrent_link = message.command[1]
+        added_torrent = QBT().add_torrent(torrent_link)
+
+        if added_torrent == "Ok.":
+            await message.reply(f"**Torrent Added Successfully! {Emoji.PARTY_POPPER}**")
+        else:
+            await message.reply(f"Either that was an incorrect torrent link or you just sent some gibberish "
+                          f"{Emoji.FACE_VOMITING} "
+                          f"Nothing I can do to fix that {Emoji.MAN_SHRUGGING_MEDIUM_LIGHT_SKIN_TONE}")
+
+    except IndexError:
+        await message.reply("Please send a the link to the torrent after the command")
+
+
+@TorrentBot.on_message(CustomFilters.command("controls"))
+async def controls(bot, message: Message):
+    buttons = [
+        [
+            InlineKeyboardButton(f"Resume All", f"resume_all"),
+            InlineKeyboardButton(f"Pause All", f"pause_all"),
+        ],
+    ]
+
+    await message.reply(
+        "Here are some master controls..",
+        reply_markup=InlineKeyboardMarkup(buttons)
+    )
+
+# # Command help section
 add_command_help(
     'list', [['/list', 'Lists all the torrents in the client.']],
 )
@@ -142,4 +158,3 @@ add_command_help(
 add_command_help(
     'torrents', [['/torrents', 'Sends torrent buttons to interact with each torrent.']],
 )
-
