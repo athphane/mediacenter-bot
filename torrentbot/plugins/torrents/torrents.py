@@ -4,7 +4,7 @@ import pyrogram.errors as pyro_errors
 from torrentbot.helpers.converters import human_bytes, human_unix_time, time_delta
 from time import sleep
 from torrentbot.helpers.custom_filters import CustomFilters
-from torrentbot.plugins.help import add_command_help
+from torrentbot.plugins.admin.help import add_command_help
 from torrentbot.helpers.Qbittorrent import TorrentClient as QBT
 
 
@@ -85,9 +85,10 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
     priority_level = torrent_details['priority'] if torrent_details['priority'] != -1 else None
     progress = round(float(torrent_details['progress'] * 100), 2) if torrent_details['progress'] else 0
     total_size = human_bytes(torrent_details['total_size']) if torrent_details['total_size'] != -1 or 0 else 0
+
     constructed_message = (
         f"**Torrent**:\n"
-        f"{str(priority_level)+'. ' if priority_level else None}__{QBT().find_torrent_name(torrent_hash)}__\n\n"
+        f"{str(priority_level) + '. ' if priority_level else None}__{QBT().find_torrent_name(torrent_hash)}__\n\n"
 
         f"**Status**:\n"
         f"__{torrent_details['state'].title()}__\n\n"
@@ -112,10 +113,10 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
             constructed_message,
             reply_markup=InlineKeyboardMarkup(buttons)
         )
+
     except pyro_errors.MessageNotModified:
         await callback.answer("No change")
         message = await callback.message.reply("Torrent details have not changed")
-        sleep(2)
         await message.delete()
 
 
@@ -128,33 +129,21 @@ async def add_torrent(bot, message: Message):
         if added_torrent == "Ok.":
             await message.reply(f"**Torrent Added Successfully! {Emoji.PARTY_POPPER}**")
         else:
-            await message.reply(f"Either that was an incorrect torrent link or you just sent some gibberish "
-                          f"{Emoji.FACE_VOMITING} "
-                          f"Nothing I can do to fix that {Emoji.MAN_SHRUGGING_MEDIUM_LIGHT_SKIN_TONE}")
+            await message.reply(
+                f"Either that was an incorrect torrent link or you just sent some gibberish "
+                f"{Emoji.FACE_VOMITING} "
+                f"Nothing I can do to fix that {Emoji.MAN_SHRUGGING_MEDIUM_LIGHT_SKIN_TONE}"
+            )
 
     except IndexError:
         await message.reply("Please send a the link to the torrent after the command")
 
 
-@TorrentBot.on_message(CustomFilters.command("controls"))
-async def controls(bot, message: Message):
-    buttons = [
-        [
-            InlineKeyboardButton(f"Resume All", f"resume_all"),
-            InlineKeyboardButton(f"Pause All", f"pause_all"),
-        ],
-    ]
-
-    await message.reply(
-        "Here are some master controls..",
-        reply_markup=InlineKeyboardMarkup(buttons)
-    )
-
 # # Command help section
 add_command_help(
-    'list', [['/list', 'Lists all the torrents in the client.']],
-)
-
-add_command_help(
-    'torrents', [['/torrents', 'Sends torrent buttons to interact with each torrent.']],
+    'torrents', [
+        ['/list', 'Lists all the torrents in the client.'],
+        ['/torrents', 'Sends torrent buttons to interact with each torrent.'],
+        ['/add', 'Add a new torrent. Send link to torrent as argument..'],
+    ],
 )

@@ -149,3 +149,7 @@ class TorrentClient:
     def top_priority(self, torrent_hash):
         properties = self._get(f'torrents/topPrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
+
+    def min_priority(self, torrent_hash):
+        properties = self._get(f'torrents/bottomPrio?hashes={torrent_hash}')
+        return self.add_all_info(properties, torrent_hash)
