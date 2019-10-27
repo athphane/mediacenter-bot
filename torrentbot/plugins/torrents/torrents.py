@@ -4,7 +4,7 @@ import pyrogram.errors as pyro_errors
 from torrentbot.helpers.converters import human_bytes, human_unix_time, time_delta
 from time import sleep
 from torrentbot.helpers.custom_filters import CustomFilters
-from torrentbot.plugins.admin.a_help import add_command_help
+from torrentbot.plugins.admin.help import add_command_help
 from torrentbot.helpers.Qbittorrent import TorrentClient as QBT
 
 

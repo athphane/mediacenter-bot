@@ -1,7 +1,7 @@
 from torrentbot import ALLOWED_USERS
 from torrentbot.torrentbot import TorrentBot
 from pyrogram import Message, Filters
-from torrentbot.plugins.admin.a_help import add_command_help
+from torrentbot.plugins.admin.help import add_command_help
 from torrentbot.helpers.custom_filters import CustomFilters
 
 
