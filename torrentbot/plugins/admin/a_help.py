@@ -1,7 +1,8 @@
 from torrentbot.torrentbot import TorrentBot
 from pyrogram import Message
-from torrentbot import CMD_HELP
 from torrentbot.helpers.custom_filters import CustomFilters
+
+CMD_HELP = {}
 
 
 @TorrentBot.on_message(CustomFilters.command("help"))
@@ -13,7 +14,10 @@ async def module_help(bot, message: Message):
     elif message.reply_to_message and len(cmd) is 1:
         help_arg = message.reply_to_message.text
     elif not message.reply_to_message and len(cmd) is 1:
-        await message.reply("Please specify which module you want help for!! \nUsage: .help <module_name>", parse_mode=None)
+        await message.reply(
+            "Please specify which module you want help for!! \nUsage: .help <module_name>",
+            parse_mode=None
+        )
 
         all_commands = ""
         for x in CMD_HELP:

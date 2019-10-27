@@ -38,4 +38,3 @@ __version__ = '0.2.0'
 __author__ = 'athphane'
 
 # Global Variables
-CMD_HELP = {}
