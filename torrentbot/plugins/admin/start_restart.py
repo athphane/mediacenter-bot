@@ -6,7 +6,7 @@ from torrentbot.helpers.custom_filters import CustomFilters
 
 
 @TorrentBot.on_message(CustomFilters.command("start"))
-async def start(bot, message: Message):
+async def start(bot: TorrentBot, message: Message):
     await message.reply("Welcome to TorrentBot! I help you control your qBittorrent client.")
 
 
@@ -16,7 +16,7 @@ async def real_restart(bot: TorrentBot, message: Message):
 
 
 @TorrentBot.on_message(Filters.user(ALLOWED_USERS) & CustomFilters.command("restart"))
-async def restart(bot, message: Message):
+async def restart(bot: TorrentBot, message: Message):
     await message.reply("Restarting TorrentBot.")
     import asyncio
     asyncio.get_event_loop().create_task(real_restart(bot, message))

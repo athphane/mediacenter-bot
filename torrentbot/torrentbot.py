@@ -16,7 +16,7 @@ class TorrentBot(Client):
             config_file=config_file,
             workers=16,
             plugins=dict(root="torrentbot/plugins"),
-            workdir="."
+            workdir="../"
         )
 
     async def start(self):

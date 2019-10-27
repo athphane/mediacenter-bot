@@ -4,7 +4,7 @@ import shlex
 from torrentbot import BOT_USERNAME
 
 
-class CustomFilters:
+class CustomFilters(Filters):
     @staticmethod
     def command(
             commands: str or list,

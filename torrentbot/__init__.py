@@ -1,4 +1,6 @@
 from configparser import ConfigParser
+from logging.handlers import TimedRotatingFileHandler
+
 from torrentbot.torrentbot import TorrentBot
 import ast
 import logging
@@ -9,6 +11,8 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO,
     handlers=[
+        TimedRotatingFileHandler('torrentbot.log', when="midnight", encoding=None,
+                                 delay=False, backupCount=10),
         logging.StreamHandler()
     ]
 )

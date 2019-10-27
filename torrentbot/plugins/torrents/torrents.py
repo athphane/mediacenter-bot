@@ -28,7 +28,7 @@ def make_torrent_buttons(torrent_hash):
 
 
 @TorrentBot.on_message(CustomFilters.command("list"))
-async def send_torrent_list(bot, message: Message):
+async def send_torrent_list(bot: TorrentBot, message: Message):
     torrents = QBT().torrents()
     if not len(torrents) == 0:
         text = ""
@@ -43,7 +43,7 @@ async def send_torrent_list(bot, message: Message):
 
 
 @TorrentBot.on_message(CustomFilters.command("torrents"))
-async def torrents(bot, message: Message, **kwargs):
+async def torrents(bot: TorrentBot, message: Message, **kwargs):
     buttons = []
 
     torrents = QBT().torrents()
@@ -121,7 +121,7 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
 
 
 @TorrentBot.on_message(CustomFilters.command("add"))
-async def add_torrent(bot, message: Message):
+async def add_torrent(bot: TorrentBot, message: Message):
     try:
         torrent_link = message.command[1]
         added_torrent = QBT().add_torrent(torrent_link)

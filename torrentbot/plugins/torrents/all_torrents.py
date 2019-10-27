@@ -5,7 +5,7 @@ from torrentbot.helpers.Qbittorrent import TorrentClient as QBT
 
 
 @TorrentBot.on_message(CustomFilters.command("controls"))
-async def controls(bot, message: Message):
+async def controls(bot: TorrentBot, message: Message):
     await message.reply(
         "Here are some master controls..",
         reply_markup=InlineKeyboardMarkup([

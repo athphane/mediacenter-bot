@@ -8,7 +8,7 @@ NOT_ALLOWED_MESSAGE = (f'**{Emoji.FIRE} You are not allowed! {Emoji.FIRE}\n'
 
 
 @TorrentBot.on_message(~Filters.user(ALLOWED_USERS), group=-1)
-async def stop_user_from_doing_anything(bot, message: Message):
+async def stop_user_from_doing_anything(bot: TorrentBot, message: Message):
     """
     Checks if user is allowed to use TorrentBot
     """

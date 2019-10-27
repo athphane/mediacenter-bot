@@ -6,7 +6,7 @@ CMD_HELP = {}
 
 
 @TorrentBot.on_message(CustomFilters.command("help"))
-async def module_help(bot, message: Message):
+async def module_help(bot: TorrentBot, message: Message):
     cmd = message.command
 
     if len(cmd) > 1:
