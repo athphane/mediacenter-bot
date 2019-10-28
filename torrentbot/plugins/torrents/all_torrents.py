@@ -1,7 +1,7 @@
 from torrentbot.torrentbot import TorrentBot
 from pyrogram import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Message
-from torrentbot.helpers.custom_filters import CustomFilters
-from torrentbot.helpers.Qbittorrent import TorrentClient as QBT
+from torrentbot.utilities.custom_filters import CustomFilters
+from torrentbot.utilities.Qbittorrent import TorrentClient as QBT
 
 
 @TorrentBot.on_message(CustomFilters.command("controls"))

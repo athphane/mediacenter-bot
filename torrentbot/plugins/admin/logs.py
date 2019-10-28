@@ -1,6 +1,6 @@
 import time
 import os
-from torrentbot.helpers.custom_filters import CustomFilters
+from torrentbot.utilities.custom_filters import CustomFilters
 from torrentbot.plugins.admin.help import add_command_help
 from torrentbot.torrentbot import TorrentBot
 from pyrogram import Message

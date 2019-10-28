@@ -1,8 +1,8 @@
 from torrentbot.torrentbot import TorrentBot
 from pyrogram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Emoji
-from torrentbot.helpers.custom_filters import CustomFilters
+from torrentbot.utilities.custom_filters import CustomFilters
 from torrentbot.plugins.torrents.torrents import torrents
-from torrentbot.helpers.Qbittorrent import TorrentClient as QBT
+from torrentbot.utilities.Qbittorrent import TorrentClient as QBT
 import time
 
 

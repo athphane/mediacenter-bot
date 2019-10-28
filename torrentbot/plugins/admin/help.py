@@ -1,6 +1,6 @@
 from torrentbot.torrentbot import TorrentBot
 from pyrogram import Message
-from torrentbot.helpers.custom_filters import CustomFilters
+from torrentbot.utilities.custom_filters import CustomFilters
 
 CMD_HELP = {}
 

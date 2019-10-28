@@ -2,7 +2,7 @@ from torrentbot import ALLOWED_USERS
 from torrentbot.torrentbot import TorrentBot
 from pyrogram import Message, Filters
 from torrentbot.plugins.admin.help import add_command_help
-from torrentbot.helpers.custom_filters import CustomFilters
+from torrentbot.utilities.custom_filters import CustomFilters
 
 
 @TorrentBot.on_message(CustomFilters.command("start"))

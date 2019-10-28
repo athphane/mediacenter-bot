@@ -1,6 +1,6 @@
 from torrentbot.torrentbot import TorrentBot
 from pyrogram import CallbackQuery
-from torrentbot.helpers.custom_filters import CustomFilters
+from torrentbot.utilities.custom_filters import CustomFilters
 from torrentbot.plugins.torrents.torrents import torrent, torrents
 
 
