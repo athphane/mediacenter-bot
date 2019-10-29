@@ -1,12 +1,12 @@
-from torrentbot.torrentbot import TorrentBot
+from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message
-from torrentbot.utilities.custom_filters import CustomFilters
+from mediacenter.utilities.custom_filters import CustomFilters
 
 CMD_HELP = {}
 
 
-@TorrentBot.on_message(CustomFilters.command("help"))
-async def module_help(bot: TorrentBot, message: Message):
+@MediaCenterBot.on_message(CustomFilters.command("help"))
+async def module_help(bot: MediaCenterBot, message: Message):
     cmd = message.command
 
     if len(cmd) > 1:

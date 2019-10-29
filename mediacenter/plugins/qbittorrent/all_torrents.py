@@ -1,11 +1,11 @@
-from torrentbot.torrentbot import TorrentBot
+from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Message
-from torrentbot.utilities.custom_filters import CustomFilters
-from torrentbot.utilities.Qbittorrent import TorrentClient as QBT
+from mediacenter.utilities.custom_filters import CustomFilters
+from mediacenter.utilities.Qbittorrent import TorrentClient as QBT
 
 
-@TorrentBot.on_message(CustomFilters.command("controls"))
-async def controls(bot: TorrentBot, message: Message):
+@MediaCenterBot.on_message(CustomFilters.command("controls"))
+async def controls(bot: MediaCenterBot, message: Message):
     await message.reply(
         "Here are some master controls..",
         reply_markup=InlineKeyboardMarkup([
@@ -17,7 +17,7 @@ async def controls(bot: TorrentBot, message: Message):
     )
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('pause_all', payload=False))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('pause_all', payload=False))
 async def pause_all(client, callback: CallbackQuery):
     try:
         print("hits")
@@ -28,7 +28,7 @@ async def pause_all(client, callback: CallbackQuery):
         await callback.edit_message_text("An error occurred. Please retry later..")
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('resume_all', payload=False))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('resume_all', payload=False))
 async def resume_all(client, callback: CallbackQuery):
     try:
         QBT().resume_all()

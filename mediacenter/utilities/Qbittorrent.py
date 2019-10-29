@@ -1,6 +1,6 @@
 import requests
 import json
-from torrentbot import QBT_URL, QBT_USER, QBT_PASS
+from mediacenter import QBT_URL, QBT_USER, QBT_PASS
 
 
 class TorrentClient:
@@ -85,7 +85,7 @@ class TorrentClient:
         return self._get('app/shutdown')
 
     def torrents(self):
-        return self._get('torrents/info')
+        return self._get('qbittorrent/info')
 
     def add_all_info(self, properties, torrent_hash):
         from_torrents = self.torrents()
@@ -101,23 +101,23 @@ class TorrentClient:
         return properties
 
     def single_torrent(self, torrent_hash):
-        properties = self._get(f'torrents/properties?hash={torrent_hash}')
+        properties = self._get(f'qbittorrent/properties?hash={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def pause_torrent(self, torrent_hash):
-        properties = self._get(f'torrents/pause?hashes={torrent_hash}')
+        properties = self._get(f'qbittorrent/pause?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def resume_torrent(self, torrent_hash):
-        properties = self._get(f'torrents/resume?hashes={torrent_hash}')
+        properties = self._get(f'qbittorrent/resume?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def delete_torrent(self, torrent_hash):
-        properties = self._get(f'torrents/delete?hashes={torrent_hash}&deleteFiles=false')
+        properties = self._get(f'qbittorrent/delete?hashes={torrent_hash}&deleteFiles=false')
         return self.add_all_info(properties, torrent_hash)
 
     def delete_torrent_files(self, torrent_hash):
-        properties = self._get(f'torrents/delete?hashes={torrent_hash}&deleteFiles=true')
+        properties = self._get(f'qbittorrent/delete?hashes={torrent_hash}&deleteFiles=true')
         return self.add_all_info(properties, torrent_hash)
 
     def add_torrent(self, link):
@@ -125,7 +125,7 @@ class TorrentClient:
             'urls': link,
         }
 
-        return self._post(f'torrents/add', data=data)
+        return self._post(f'qbittorrent/add', data=data)
 
     def find_torrent_name(self, torrent_hash):
         for x in self.torrents():
@@ -133,26 +133,26 @@ class TorrentClient:
                 return x['name']
 
     def pause_all(self):
-        return self._get(f'torrents/pause?hashes=all')
+        return self._get(f'qbittorrent/pause?hashes=all')
 
     def resume_all(self):
-        return self._get(f'torrents/resume?hashes=all')
+        return self._get(f'qbittorrent/resume?hashes=all')
 
     def increase_priority(self, torrent_hash):
-        properties = self._get(f'torrents/increasePrio?hashes={torrent_hash}')
+        properties = self._get(f'qbittorrent/increasePrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def decrease_priority(self, torrent_hash):
-        properties = self._get(f'torrents/decreasePrio?hashes={torrent_hash}')
+        properties = self._get(f'qbittorrent/decreasePrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def top_priority(self, torrent_hash):
-        properties = self._get(f'torrents/topPrio?hashes={torrent_hash}')
+        properties = self._get(f'qbittorrent/topPrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def min_priority(self, torrent_hash):
-        properties = self._get(f'torrents/bottomPrio?hashes={torrent_hash}')
+        properties = self._get(f'qbittorrent/bottomPrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def all_categories(self):
-        return self._get(f'torrents/categories')
+        return self._get(f'qbittorrent/categories')

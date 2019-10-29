@@ -1,12 +1,12 @@
-from torrentbot.torrentbot import TorrentBot
+from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Emoji
-from torrentbot.utilities.custom_filters import CustomFilters
-from torrentbot.plugins.torrents.torrents import torrents
-from torrentbot.utilities.Qbittorrent import TorrentClient as QBT
+from mediacenter.utilities.custom_filters import CustomFilters
+from mediacenter.plugins.qbittorrent.torrents import torrents
+from mediacenter.utilities.Qbittorrent import TorrentClient as QBT
 import time
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('delete_tor'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('delete_tor'))
 async def show_delete_options(client, callback: CallbackQuery):
     def delete_buttons(torrent_hash):
         buttons = [
@@ -25,7 +25,7 @@ async def show_delete_options(client, callback: CallbackQuery):
     )
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('deltor'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('deltor'))
 async def delete_torrent(client, callback: CallbackQuery, **kwargs):
     torrent_hash = kwargs.get('torrent_hash') if kwargs.get('torrent_hash') else callback.payload
     try:
@@ -46,7 +46,7 @@ async def delete_torrent(client, callback: CallbackQuery, **kwargs):
         await callback.message.reply(f"{Emoji.SKULL} **And error has occurred** {Emoji.SKULL}")
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('delfile'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('delfile'))
 async def delete_only_torrent(client, callback: CallbackQuery):
     torrent_hash = callback.payload
     await delete_torrent(client, callback, torrent_hash=torrent_hash, files=True)

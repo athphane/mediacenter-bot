@@ -1,11 +1,11 @@
-from torrentbot.torrentbot import TorrentBot
+from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, Emoji
 import pyrogram.errors as pyro_errors
-from torrentbot.utilities.converters import human_bytes, human_unix_time, time_delta
+from mediacenter.utilities.converters import human_bytes, human_unix_time, time_delta
 from time import sleep
-from torrentbot.utilities.custom_filters import CustomFilters
-from torrentbot.plugins.admin.help import add_command_help
-from torrentbot.utilities.Qbittorrent import TorrentClient as QBT
+from mediacenter.utilities.custom_filters import CustomFilters
+from mediacenter.plugins.admin.help import add_command_help
+from mediacenter.utilities.Qbittorrent import TorrentClient as QBT
 
 
 def make_torrent_buttons(torrent_hash):
@@ -27,8 +27,8 @@ def make_torrent_buttons(torrent_hash):
     return buttons
 
 
-@TorrentBot.on_message(CustomFilters.command("list"))
-async def send_torrent_list(bot: TorrentBot, message: Message):
+@MediaCenterBot.on_message(CustomFilters.command("list"))
+async def send_torrent_list(bot: MediaCenterBot, message: Message):
     torrents = QBT().torrents()
     if not len(torrents) == 0:
         text = ""
@@ -39,16 +39,16 @@ async def send_torrent_list(bot: TorrentBot, message: Message):
 
         await message.reply(text)
     else:
-        await message.reply(f"**You have no torrents!** {Emoji.EXCLAMATION_MARK}")
+        await message.reply(f"**You have no qbittorrent!** {Emoji.EXCLAMATION_MARK}")
 
 
-@TorrentBot.on_message(CustomFilters.command("torrents"))
-async def torrents(bot: TorrentBot, message: Message, **kwargs):
+@MediaCenterBot.on_message(CustomFilters.command("qbittorrent"))
+async def torrents(bot: MediaCenterBot, message: Message, **kwargs):
     buttons = []
 
     torrents = QBT().torrents()
     if len(torrents) == 0:
-        await message.reply(f"**You have no torrents!** {Emoji.EXCLAMATION_MARK}")
+        await message.reply(f"**You have no qbittorrent!** {Emoji.EXCLAMATION_MARK}")
         return
 
     for x in torrents:
@@ -66,7 +66,7 @@ async def torrents(bot: TorrentBot, message: Message, **kwargs):
         await message.reply("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('torrent'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('torrent'))
 async def torrent(client, callback: CallbackQuery, **kwargs):
     if kwargs.get('torrent_hash'):
         torrent_hash = kwargs.get('torrent_hash')
@@ -120,8 +120,8 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
         await message.delete()
 
 
-@TorrentBot.on_message(CustomFilters.command("add"))
-async def add_torrent(bot: TorrentBot, message: Message):
+@MediaCenterBot.on_message(CustomFilters.command("add"))
+async def add_torrent(bot: MediaCenterBot, message: Message):
     try:
         torrent_link = message.command[1]
         added_torrent = QBT().add_torrent(torrent_link)
@@ -141,7 +141,7 @@ async def add_torrent(bot: TorrentBot, message: Message):
 
 # # Command help section
 add_command_help(
-    'torrents', [
+    'qbittorrent', [
         ['/list', 'Lists all the torrents in the client.'],
         ['/torrents', 'Sends torrent buttons to interact with each torrent.'],
         ['/add', 'Add a new torrent. Send link to torrent as argument..'],

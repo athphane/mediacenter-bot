@@ -4,6 +4,6 @@ venv/
 *.session
 *.session-journal
 __pycache__/
-torrentbot.ini
+mediacenterbot.ini
 unknown_errors.txt
-*.log
+*.log*

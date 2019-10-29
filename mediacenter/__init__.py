@@ -1,7 +1,6 @@
 from configparser import ConfigParser
 from logging.handlers import TimedRotatingFileHandler
-
-from torrentbot.torrentbot import TorrentBot
+from mediacenter.mediacenterbot import MediaCenterBot
 import ast
 import logging
 import sys
@@ -9,9 +8,9 @@ import sys
 # Logging at the start to catch everything
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO,
+    level=logging.WARNING,
     handlers=[
-        TimedRotatingFileHandler('torrentbot.log', when="midnight", encoding=None,
+        TimedRotatingFileHandler('mediacenter.log', when="midnight", encoding=None,
                                  delay=False, backupCount=10),
         logging.StreamHandler()
     ]
@@ -19,7 +18,7 @@ logging.basicConfig(
 LOGS = logging.getLogger(__name__)
 
 # Read from config file
-name = TorrentBot().__class__.__name__.lower()
+name = MediaCenterBot().__class__.__name__.lower()
 config_file = f"{name}.ini"
 config = ConfigParser()
 config.read(config_file)

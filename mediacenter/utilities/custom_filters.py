@@ -1,7 +1,7 @@
 from pyrogram import Filters, CallbackQuery
 import re
 import shlex
-from torrentbot import BOT_USERNAME
+from mediacenter import BOT_USERNAME
 
 
 class CustomFilters(Filters):

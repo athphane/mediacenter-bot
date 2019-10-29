@@ -1,11 +1,11 @@
-from torrentbot.torrentbot import TorrentBot
+from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Emoji
-from torrentbot.utilities.custom_filters import CustomFilters
-from torrentbot.plugins.torrents.torrents import torrent
-from torrentbot.utilities.Qbittorrent import TorrentClient as QBT
+from mediacenter.utilities.custom_filters import CustomFilters
+from mediacenter.plugins.qbittorrent.torrents import torrent
+from mediacenter.utilities.Qbittorrent import TorrentClient as QBT
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('incprio'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('incprio'))
 async def increment_priority(client, callback: CallbackQuery):
     torrent_hash = callback.payload
     try:
@@ -16,7 +16,7 @@ async def increment_priority(client, callback: CallbackQuery):
         await callback.answer("Something went wrong.")
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('decprio'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('decprio'))
 async def decrement_priority(client, callback: CallbackQuery):
     torrent_hash = callback.payload
     try:
@@ -27,7 +27,7 @@ async def decrement_priority(client, callback: CallbackQuery):
         await callback.answer("Something went wrong.")
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('maxprio'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('maxprio'))
 async def decrement_priority(client, callback: CallbackQuery):
     torrent_hash = callback.payload
     try:
@@ -38,7 +38,7 @@ async def decrement_priority(client, callback: CallbackQuery):
         await callback.answer("Something went wrong.")
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('minprio'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('minprio'))
 async def decrement_priority(client, callback: CallbackQuery):
     torrent_hash = callback.payload
     try:
@@ -49,7 +49,7 @@ async def decrement_priority(client, callback: CallbackQuery):
         await callback.answer("Something went wrong.")
 
 
-@TorrentBot.on_callback_query(CustomFilters.callback_query('priority'))
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('priority'))
 async def torrent_priorities(client, callback: CallbackQuery):
     torrent_hash = callback.payload
 
