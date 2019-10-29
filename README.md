@@ -18,7 +18,7 @@ There is no one click deploy.. It was all a ruse. You have to deploy like how I 
 
 #### The way I deploy
 ```bash
-git clone https://github.com/athphane/mediacecnter-bot.git
+git clone https://github.com/athphane/mediacenter-bot.git
 cd mediacenter-bot
 virtualenv venv
 source venv/bin/activate
