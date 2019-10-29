@@ -1,4 +1,4 @@
-# Telegram Bot for qBitTorrent
+# Telegram Bot for your Media Center
 A Telegram Bot based on [Pyrogram](https://github.com/pyrogram/pyrogram)
 
 I assume you will read this whole README.md file before continuing.
@@ -18,12 +18,12 @@ There is no one click deploy.. It was all a ruse. You have to deploy like how I 
 
 #### The way I deploy
 ```bash
-git clone https://github.com/athphane/qbittorrent-bot.git
-cd qbittorrent-bot
+git clone https://github.com/athphane/mediacecnter-bot.git
+cd mediacenter-bot
 virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python -m bot.
+python -m mediacenter.
 ```
 
 
