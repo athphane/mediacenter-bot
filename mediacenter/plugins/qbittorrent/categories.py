@@ -14,9 +14,12 @@ async def categories_menu(bot: MediaCenterBot, message: Message):
     for x in keys:
         categories_list.append(categories.get(x).get('name'))
 
-    # split_list(categories_list, 3)
+    def make_buttons():
+        button_list = split_list(categories_list, 3)
+        print(button_list)
+        return button_list
 
-    await message.reply(str(categories_list))
+    await message.reply(str(make_buttons()))
 
 # Command help section
 add_command_help(

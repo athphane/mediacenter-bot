@@ -39,16 +39,16 @@ async def send_torrent_list(bot: MediaCenterBot, message: Message):
 
         await message.reply(text)
     else:
-        await message.reply(f"**You have no qbittorrent!** {Emoji.EXCLAMATION_MARK}")
+        await message.reply(f"**You have no torrents!** {Emoji.EXCLAMATION_MARK}")
 
 
-@MediaCenterBot.on_message(CustomFilters.command("qbittorrent"))
+@MediaCenterBot.on_message(CustomFilters.command("torrents"))
 async def torrents(bot: MediaCenterBot, message: Message, **kwargs):
     buttons = []
 
     torrents = QBT().torrents()
     if len(torrents) == 0:
-        await message.reply(f"**You have no qbittorrent!** {Emoji.EXCLAMATION_MARK}")
+        await message.reply(f"**You have no torrents!** {Emoji.EXCLAMATION_MARK}")
         return
 
     for x in torrents:
@@ -61,9 +61,9 @@ async def torrents(bot: MediaCenterBot, message: Message, **kwargs):
         buttons.append(button)
 
     if kwargs.get('back'):
-        await message.edit_text("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
+        await message.edit_text("Here is all the torrents available", reply_markup=InlineKeyboardMarkup(buttons))
     else:
-        await message.reply("Here is all the torrent's available", reply_markup=InlineKeyboardMarkup(buttons))
+        await message.reply("Here is all the torrents available", reply_markup=InlineKeyboardMarkup(buttons))
 
 
 @MediaCenterBot.on_callback_query(CustomFilters.callback_query('torrent'))
