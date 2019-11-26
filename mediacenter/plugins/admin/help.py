@@ -1,6 +1,6 @@
 from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message
-from mediacenter.utilities.custom_filters import CustomFilters
+from mediacenter.utils.custom_filters import CustomFilters
 
 CMD_HELP = {}
 

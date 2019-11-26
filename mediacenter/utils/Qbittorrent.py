@@ -156,3 +156,11 @@ class TorrentClient:
 
     def all_categories(self):
         return self._get(f'torrents/categories')
+
+    def add_category(self, category_name):
+        data = {
+            'category': category_name,
+            'savePath': None
+        }
+
+        return self._post(f'torrents/createCategory', data=data)

@@ -1,6 +1,6 @@
 import time
 import os
-from mediacenter.utilities.custom_filters import CustomFilters
+from mediacenter.utils.custom_filters import CustomFilters
 from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message

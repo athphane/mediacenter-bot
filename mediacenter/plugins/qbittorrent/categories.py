@@ -2,9 +2,9 @@ from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import errors as pyro_errors
-from mediacenter.utilities.custom_filters import CustomFilters
-from mediacenter.utilities.Qbittorrent import TorrentClient as QBT
-# from mediacenter.utilities.helpers import split_list
+from mediacenter.utils.custom_filters import CustomFilters
+from mediacenter.utils.Qbittorrent import TorrentClient as QBT
+# from mediacenter.utils.helpers import split_list
 
 
 @MediaCenterBot.on_message(CustomFilters.command("categories"))
@@ -30,7 +30,7 @@ async def list_categories(client: MediaCenterBot, callback: CallbackQuery):
     categories_list = "\n".join(categories_list)
 
     full_text = (
-        "Here are all of your categories\n"
+        "Here are all of your categories\n\n"
         "{categories}"
     )
 
@@ -43,6 +43,11 @@ async def list_categories(client: MediaCenterBot, callback: CallbackQuery):
         )
     except pyro_errors.MessageNotModified:
         pass
+
+
+# @MediaCenterBot.on_callback_query(CustomFilters.callback_query('create_categories', False))
+# async def list_categories(client: MediaCenterBot, callback: CallbackQuery):
+
 
 
 # Command help section

@@ -1,8 +1,8 @@
 from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Emoji
-from mediacenter.utilities.custom_filters import CustomFilters
+from mediacenter.utils.custom_filters import CustomFilters
 from mediacenter.plugins.qbittorrent.torrents import torrents
-from mediacenter.utilities.Qbittorrent import TorrentClient as QBT
+from mediacenter.utils.Qbittorrent import TorrentClient as QBT
 import time
 
 

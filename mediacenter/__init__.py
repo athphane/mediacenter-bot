@@ -8,7 +8,7 @@ import sys
 # Logging at the start to catch everything
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.WARNING,
+    level=logging.INFO,
     handlers=[
         TimedRotatingFileHandler('mediacenter.log', when="midnight", encoding=None,
                                  delay=False, backupCount=10),
