@@ -1,6 +1,5 @@
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import Message, Filters
-from mediacenter.plugins.admin.help import add_command_help
+from pyrogram import Message
 from mediacenter.utils.custom_filters import CustomFilters
 
 
