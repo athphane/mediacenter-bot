@@ -36,6 +36,9 @@ QBT_URL = config.get('qbittorrent', 'qbt_url')
 QBT_USER = config.get('qbittorrent', 'qbt_user')
 QBT_PASS = config.get('qbittorrent', 'qbt_password')
 
+SONARR_API_URL = config.get('sonarr', 'sonarr_api_url')
+SONARR_API_KEY = config.get('sonarr', 'sonarr_api_key')
+
 # Extra details
 __version__ = '0.2.0'
 __author__ = 'athphane'

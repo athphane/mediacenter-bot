@@ -10,3 +10,7 @@ users = [list of users that can use this bot.]
 qbt_url = http://localhost:8080
 qbt_user = admin
 qbt_password = admin
+
+[sonarr]
+sonarr_api_url = http://[IP/FQDN]:[PORT]/[REVERSE_PROXY]/api
+sonarr_api_key = YOUR_API_KEY_FROM_SONARR
