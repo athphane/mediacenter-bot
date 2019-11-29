@@ -5,7 +5,7 @@ from mediacenter.utils.converters import human_bytes, human_unix_time, time_delt
 from time import sleep
 from mediacenter.utils.custom_filters import CustomFilters
 from mediacenter.plugins.admin.help import add_command_help
-from mediacenter.utils.Qbittorrent import TorrentClient as QBT
+from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
 
 
 def make_torrent_buttons(torrent_hash):

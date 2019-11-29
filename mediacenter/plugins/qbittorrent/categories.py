@@ -3,7 +3,7 @@ from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import errors as pyro_errors
 from mediacenter.utils.custom_filters import CustomFilters
-from mediacenter.utils.Qbittorrent import TorrentClient as QBT
+from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
 # from mediacenter.utils.helpers import split_list
 
 

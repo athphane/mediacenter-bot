@@ -2,7 +2,7 @@ from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import CallbackQuery
 from mediacenter.utils.custom_filters import CustomFilters
 from mediacenter.plugins.qbittorrent.torrents import torrent
-from mediacenter.utils.Qbittorrent import TorrentClient as QBT
+from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
 
 
 @MediaCenterBot.on_callback_query(CustomFilters.callback_query('resume'))
