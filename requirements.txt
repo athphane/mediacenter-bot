@@ -3,3 +3,4 @@ https://github.com/pyrogram/pyrogram/archive/asyncio.zip
 requests
 urllib3
 pymongo
+apscheduler

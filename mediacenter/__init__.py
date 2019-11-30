@@ -17,6 +17,8 @@ logging.basicConfig(
 )
 LOGS = logging.getLogger(__name__)
 
+logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+
 # Read from config file
 name = MediaCenterBot().__class__.__name__.lower()
 config_file = f"{name}.ini"
