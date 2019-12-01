@@ -4,7 +4,13 @@ api_hash = super-secret-api-hash
 
 [torrentbot]
 bot_token = le-bot-token
-users = [list of users that can use this bot.]
+users = [users that can use this bot. (python list)]
+
+[mongo]
+url = localhost
+db_name = mediacenterbot
+db_username =
+db_password =
 
 [qbittorrent]
 qbt_url = http://localhost:8080
