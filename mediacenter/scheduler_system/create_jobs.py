@@ -1,4 +1,3 @@
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import mediacenter
 from mediacenter import scheduler
 
