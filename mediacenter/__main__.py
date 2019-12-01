@@ -1,11 +1,11 @@
 from mediacenter.mediacenterbot import MediaCenterBot
-from mediacenter import scheduler, ALLOWED_USERS
-from mediacenter.scheduler_system.create_jobs import set_client, add_job
+from mediacenter import scheduler, ADMIN
+from mediacenter.scheduler_system.create_jobs import add_job
 import mediacenter
 
 
 async def test_function(client: MediaCenterBot):
-    await client.send_message(ALLOWED_USERS, "something")
+    await client.send_message(ADMIN, "something")
 
 
 if __name__ == '__main__':

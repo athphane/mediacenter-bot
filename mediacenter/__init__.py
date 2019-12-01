@@ -36,6 +36,8 @@ except:
     print("BOT USERNAME IS REQUIRED. ADD TO CONFIG FILE")
     sys.exit()
 
+ADMIN = config.get(name, 'admin')
+
 MONGO_URL = config.get('mongo', 'url')
 DB_NAME = config.get('mongo', 'db_name')
 DB_USERNAME = config.get('mongo', 'db_username')
