@@ -1,5 +1,6 @@
 from configparser import ConfigParser
 from logging.handlers import TimedRotatingFileHandler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from mediacenter.mediacenterbot import MediaCenterBot
 import ast
 import logging
@@ -45,4 +46,8 @@ SONARR_API_KEY = config.get('sonarr', 'sonarr_api_key')
 __version__ = '0.2.0'
 __author__ = 'athphane'
 
+# Scheduler
+scheduler = AsyncIOScheduler()
+
 # Global Variables
+client = None
