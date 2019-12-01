@@ -18,6 +18,7 @@ logging.basicConfig(
 )
 LOGS = logging.getLogger(__name__)
 
+# Manually setting APScheduler logger level because it's not set by default.
 logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
 # Read from config file
