@@ -35,6 +35,11 @@ except:
     print("BOT USERNAME IS REQUIRED. ADD TO CONFIG FILE")
     sys.exit()
 
+MONGO_URL = config.get('mongo', 'url')
+DB_NAME = config.get('mongo', 'db_name')
+DB_USERNAME = config.get('mongo', 'db_username')
+DB_PASSWORD = config.get('mongo', 'db_password')
+
 QBT_URL = config.get('qbittorrent', 'qbt_url')
 QBT_USER = config.get('qbittorrent', 'qbt_user')
 QBT_PASS = config.get('qbittorrent', 'qbt_password')
