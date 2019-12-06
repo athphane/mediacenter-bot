@@ -11,7 +11,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO,
     handlers=[
-        TimedRotatingFileHandler('mediacenter.log', when="midnight", encoding=None,
+        TimedRotatingFileHandler('logs/mediacenter.log', when="midnight", encoding=None,
                                  delay=False, backupCount=10),
         logging.StreamHandler()
     ]
