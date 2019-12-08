@@ -43,7 +43,7 @@ async def delete_torrent(client, callback: CallbackQuery, **kwargs):
         await torrents(client, callback.message)
     except Exception:
         await callback.answer("ERROR")
-        await callback.message.reply(f"{Emoji.SKULL} **And error has occurred** {Emoji.SKULL}")
+        await callback.message.reply(f"{Emoji.SKULL} **An error has occurred** {Emoji.SKULL}")
 
 
 @MediaCenterBot.on_callback_query(CustomFilters.callback_query('delfile'))
