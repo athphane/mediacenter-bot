@@ -14,12 +14,7 @@ async def module_help(bot: MediaCenterBot, message: Message):
     elif message.reply_to_message and len(cmd) is 1:
         help_arg = message.reply_to_message.text
     elif not message.reply_to_message and len(cmd) is 1:
-        await message.reply(
-            "Please specify which module you want help for!! \nUsage: .help <module_name>",
-            parse_mode=None
-        )
-
-        all_commands = ""
+        all_commands = "Please specify which module you want help for!! \nUsage: /help \"module_name\"\n\n"
         for x in CMD_HELP:
             all_commands += f"`{str(x)}`\n"
 
