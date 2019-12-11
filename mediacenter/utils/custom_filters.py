@@ -29,7 +29,7 @@ class CustomFilters(Filters):
             if not text:
                 return False
 
-            regex = "^({prefix})+({regex})(@{bot_name})?(.*)".format(
+            regex = "^({prefix})+(\\b{regex}\\b)(@{bot_name})?(.*)".format(
                 prefix='|'.join(re.escape(x) for x in flt.prefixes),
                 regex='|'.join(flt.commands),
                 bot_name=BOT_USERNAME
