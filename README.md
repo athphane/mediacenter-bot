@@ -32,4 +32,3 @@ python -m mediacenter.
 
 ## Credits, and Thanks to
 * [Dan](https://t.me/haskell) for his [Pyrogram Library](https://github.com/pyrogram/pyrogram)
-* [Baivaru](https://github.com/baivaru) because they helped with getting the bot this far... 
