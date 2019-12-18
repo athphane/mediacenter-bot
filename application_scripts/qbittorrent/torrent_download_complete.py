@@ -31,7 +31,7 @@ def database():
         username=DB_USERNAME,
         password=DB_PASSWORD
     )
-    db = client['mediacenter_bot']
+    db = client['mediacenterbot']
     return db
 
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         torrent_size = random.choice(sizes)
 
     # Database connection
-    db = database()['completed_downloads']
+    db = database()['completed_torrents']
 
     data = {
         "name": torrent_name,
