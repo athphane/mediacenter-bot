@@ -3,7 +3,7 @@ import os
 from mediacenter.utils.custom_filters import CustomFilters
 from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import Message
+from pyrogram import Message, Emoji
 
 
 @MediaCenterBot.on_message(CustomFilters.command(['log', 'logs', 'logger']))
@@ -12,7 +12,7 @@ async def send_log_file(bot: MediaCenterBot, message: Message):
         await message.reply_chat_action('upload_document')
         await message.reply_document(
             document='logs/mediacenter.log',
-            caption="*Time of log*: \n`{}`".format(time.ctime(time.time()))
+            caption=f"{Emoji.CLIPBOARD}: `{time.ctime(time.time())}`"
         )
     else:
         await message.reply("Oddly enough, there is no log file. Try again?")
