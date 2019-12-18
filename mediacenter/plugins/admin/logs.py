@@ -6,13 +6,13 @@ from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message
 
 
-@MediaCenterBot.on_message(CustomFilters.command('log'))
+@MediaCenterBot.on_message(CustomFilters.command(['log', 'logs', 'logger']))
 async def send_log_file(bot: MediaCenterBot, message: Message):
-    if os.path.exists('mediacenter.log'):
+    if os.path.exists('logs/mediacenter.log'):
         await message.reply_chat_action('upload_document')
         await message.reply_document(
             document='logs/mediacenter.log',
-            caption="time now is: {}".format(time.ctime(time.time()))
+            caption="*Time of log*: \n`{}`".format(time.ctime(time.time()))
         )
     else:
         await message.reply("Oddly enough, there is no log file. Try again?")
