@@ -27,16 +27,16 @@ config_file = f"{name}.ini"
 config = ConfigParser()
 config.read(config_file)
 
-# Get from config file.
-ALLOWED_USERS = ast.literal_eval(config.get(name, 'users'))
-
+# The bot username is required cause CustomFilters.command needs it for the regex.
 try:
     BOT_USERNAME = config.get(name, 'bot_username')
 except:
     print("BOT USERNAME IS REQUIRED. ADD TO CONFIG FILE")
     sys.exit()
 
+# Get from config file.
 ADMIN = config.get(name, 'admin')
+ALLOWED_USERS: list = ast.literal_eval(config.get(name, 'users'))
 
 MONGO_URL = config.get('mongo', 'url')
 DB_NAME = config.get('mongo', 'db_name')
