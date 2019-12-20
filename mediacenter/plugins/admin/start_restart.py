@@ -7,7 +7,7 @@ from mediacenter.utils.custom_filters import CustomFilters
 
 @MediaCenterBot.on_message(CustomFilters.command("start"))
 async def start(bot: MediaCenterBot, message: Message):
-    await message.reply("Welcome to TorrentBot! I help you control your media center.")
+    await message.reply(f"Welcome to {MediaCenterBot.__name__}! I help you control your media center.")
 
 
 async def real_restart(bot: MediaCenterBot, message: Message):
@@ -17,7 +17,7 @@ async def real_restart(bot: MediaCenterBot, message: Message):
 
 @MediaCenterBot.on_message(Filters.user(ALLOWED_USERS) & CustomFilters.command("restart"))
 async def restart(bot: MediaCenterBot, message: Message):
-    await message.reply("Restarting MediaCenterBot.")
+    await message.reply(f"Restarting {MediaCenterBot.__name__}.")
     import asyncio
     asyncio.get_event_loop().create_task(real_restart(bot, message))
 
@@ -25,7 +25,7 @@ async def restart(bot: MediaCenterBot, message: Message):
 # Command help section
 add_command_help(
     'start', [
-        ['/start', 'This command just starts the MediaCenterBot.. Nothing much..'],
-        ['/restart', 'Restarts the MediaCenterBot. Lots happens in the background when restarting.']
+        ['/start', 'This command just starts the {BOT_NAME}.. Nothing much..'],
+        ['/restart', 'Restarts the {BOT_NAME}. Lots happens in the background when restarting.']
     ]
 )

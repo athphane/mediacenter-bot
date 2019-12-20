@@ -21,8 +21,8 @@ class MediaCenterBot(Client):
 
     async def start(self):
         await super().start()
-        print(f"TorrentBot started. Hi.")
+        print(f"{self.__class__.__name__} started. Hi.")
 
     async def stop(self):
         await super().stop()
-        print("TorrentBot stopped. Bye.")
+        print(f"{self.__class__.__name__} stopped. Bye.")
