@@ -1,7 +1,8 @@
-from pyrogram import Filters, CallbackQuery
+from pyrogram import Filters, CallbackQuery, Message
 import re
 import shlex
 from mediacenter import BOT_USERNAME
+from mediacenter.database.users import User
 
 
 class CustomFilters(Filters):
@@ -86,3 +87,19 @@ class CustomFilters(Filters):
                 return False
 
         return Filters.create(func, "CustomCallbackQueryFilter", data=arg)
+
+    @staticmethod
+    def allowed_users():
+        def func(flt, message: Message):
+            incoming_user = message.from_user.id
+
+            if incoming_user in User().all_user_ids():
+                return True
+            else:
+                return False
+
+        return Filters.create(
+            func,
+            "CustomAllowedUsersFilter",
+        )
+

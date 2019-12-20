@@ -15,7 +15,7 @@ async def real_restart(bot: MediaCenterBot, message: Message):
     await message.reply("Restarted!")
 
 
-@MediaCenterBot.on_message(Filters.user(ALLOWED_USERS) & CustomFilters.command("restart"))
+@MediaCenterBot.on_message(CustomFilters.allowed_users() & CustomFilters.command("restart"))
 async def restart(bot: MediaCenterBot, message: Message):
     await message.reply(f"Restarting {MediaCenterBot.__name__}.")
     import asyncio
