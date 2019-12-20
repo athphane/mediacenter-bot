@@ -1,4 +1,5 @@
 from mediacenter import ALLOWED_USERS, ADMIN
+from mediacenter.database.incidents import Incident
 from mediacenter.database.users import User
 from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message, Emoji, CallbackQuery
@@ -19,13 +20,16 @@ async def stop_user_from_doing_anything(bot: MediaCenterBot, message: Message):
     # Updates user details if they are supposed to be in the system
     if message.from_user.id in User().all_user_ids():
         User().update_user(message)
+        pass
 
     if message.from_user.id not in User().all_user_ids():
         if message.chat and message.chat.type in {"group", "supergroup"}:
             await message.reply(GROUPS_NOT_ALLOWED_MESSAGE)
+            Incident().create_incident(message)
             message.stop_propagation()
         else:
             await message.reply(NOT_ALLOWED_MESSAGE)
+            Incident().create_incident(message)
             message.stop_propagation()
     else:
         message.continue_propagation()
