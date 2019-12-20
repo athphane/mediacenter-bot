@@ -1,6 +1,7 @@
 from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import Message
 from mediacenter.utils.custom_filters import CustomFilters
+from mediacenter import BOT_USERNAME
 
 CMD_HELP = {}
 
@@ -44,7 +45,7 @@ def add_command_help(module_name: str, commands: list):
     temp_dict = {}
     count = 1
     for x in commands:
-        temp_dict[count] = {'command': x[0], 'description': x[1]}
+        temp_dict[count] = {'command': x[0], 'description': x[1].format(BOT_NAME=MediaCenterBot.__name__)}
         count += 1
 
     CMD_HELP[module_name] = temp_dict
