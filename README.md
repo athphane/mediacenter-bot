@@ -1,9 +1,9 @@
 # Media Center Bot
-A Telegram Bot based on [Pyrogram](https://github.com/pyrogram/pyrogram)
+A Telegram Bot to take control of your Media Center, built with [Pyrogram](https://github.com/pyrogram/pyrogram)
 
 I assume you will read this whole README.md file before continuing.
 
-Development in progress.
+### Development in progress.
 
 ## Requirements
 You're gonna need to get the following programs and services either installed on your server
