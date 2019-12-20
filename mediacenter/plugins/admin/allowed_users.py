@@ -18,7 +18,7 @@ async def stop_user_from_doing_anything(bot: MediaCenterBot, message: Message):
     """
     # Updates user details if they are supposed to be in the system
     if message.from_user.id in User().all_user_ids():
-        User().find_or_create(message)
+        User().update_user(message)
 
     if message.from_user.id not in User().all_user_ids():
         if message.chat and message.chat.type in {"group", "supergroup"}:
