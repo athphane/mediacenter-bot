@@ -14,16 +14,16 @@ class Incident:
         return incidents
 
     def find_latest_incident(self):
-        return self.incidents.find().sort({
-            'timestamp': -1
-        }).limit(1)
+        return self.incidents.find().sort(
+            'timestamp', -1
+        ).limit(1)
 
     def create_incident(self, message: Message):
         data = {
             'user': {
                 "id": message.chat.id,
-                "f_name": message.chat.first_name,
-                "l_name": message.chat.last_name,
+                "first_name": message.chat.first_name,
+                "last_name": message.chat.last_name,
                 "username": message.chat.username,
             },
             'crime': message.text,
