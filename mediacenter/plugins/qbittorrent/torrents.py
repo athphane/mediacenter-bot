@@ -82,13 +82,13 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
     torrent_details = QBT().single_torrent(torrent_hash)
     completed_on = human_unix_time(torrent_details['completion_date'])
     completed_on = "Incomplete" if torrent_details['completion_date'] == -1 else completed_on
-    priority_level = torrent_details['priority'] if torrent_details['priority'] != -1 else None
+    priority_level = torrent_details['priority'] if torrent_details['priority'] != -1 else ''
     progress = round(float(torrent_details['progress'] * 100), 2) if torrent_details['progress'] else 0
     total_size = human_bytes(torrent_details['total_size']) if torrent_details['total_size'] != -1 or 0 else 0
 
     constructed_message = (
         f"**Torrent**:\n"
-        f"{str(priority_level) + '. ' if priority_level else None}__{QBT().find_torrent_name(torrent_hash)}__\n\n"
+        f"{str(priority_level) + '. ' if priority_level else ''}__{QBT().find_torrent_name(torrent_hash)}__\n\n"
 
         f"**Status**:\n"
         f"__{torrent_details['state'].title()}__\n\n"
