@@ -44,6 +44,6 @@ async def start(bot: MediaCenterBot, message: Message):
 # Command help section
 add_command_help(
     'incidents', [
-        ['/lastIncident', 'Shows the latest incident that occurred on {BOT_NAME}..'],
+        ['/lastIncident', 'Shows the latest incident that occurred on {BOT_NAME}...'],
     ]
 )
