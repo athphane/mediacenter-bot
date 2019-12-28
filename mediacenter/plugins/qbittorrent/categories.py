@@ -44,12 +44,6 @@ async def list_categories(client: MediaCenterBot, callback: CallbackQuery):
     except pyro_errors.MessageNotModified:
         pass
 
-
-# @MediaCenterBot.on_callback_query(CustomFilters.callback_query('create_categories', False))
-# async def list_categories(client: MediaCenterBot, callback: CallbackQuery):
-
-
-
 # Command help section
 add_command_help(
     'categories', [

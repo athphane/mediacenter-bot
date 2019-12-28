@@ -67,6 +67,7 @@ class CustomFilters(Filters):
         if payload is True, extract payload from callback and assign to callback.payload
         if payload is False, only check if callback exactly matches argument
         """
+
         def func(flt, query: CallbackQuery):
             if payload:
                 thing = "{}\+"
@@ -102,4 +103,3 @@ class CustomFilters(Filters):
             func,
             "CustomAllowedUsersFilter",
         )
-
