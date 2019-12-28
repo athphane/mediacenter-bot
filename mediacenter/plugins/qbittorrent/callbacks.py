@@ -9,7 +9,11 @@ async def back(client, callback: CallbackQuery):
     await torrents(client, callback.message, back=True)
 
 
+@MediaCenterBot.on_callback_query(CustomFilters.callback_query('priority_back'))
+async def priority_back(client, callback: CallbackQuery):
+    await torrent(client, callback)
+
+
 @MediaCenterBot.on_callback_query(CustomFilters.callback_query('update'))
 async def update(client, callback: CallbackQuery):
-    torrent_hash = callback.payload
-    await torrent(client, callback, torrent_hash=torrent_hash, update=True)
+    await torrent(client, callback, update=True)

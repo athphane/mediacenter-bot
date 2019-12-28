@@ -2,7 +2,6 @@ from mediacenter.mediacenterbot import MediaCenterBot
 from mediacenter import scheduler
 import mediacenter
 
-
 if __name__ == '__main__':
     app = MediaCenterBot()
 
