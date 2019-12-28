@@ -61,6 +61,9 @@ async def torrent_priorities(client, callback: CallbackQuery):
         [
             InlineKeyboardButton(f"{Emoji.TOP_ARROW} Max Priority", f"maxprio+{torrent_hash}"),
             InlineKeyboardButton(f"{Emoji.DOWN_ARROW} Min Priority", f"minprio+{torrent_hash}"),
+        ],
+        [
+            InlineKeyboardButton(f"{Emoji.BACK_ARROW} Back", f"priority_back+{torrent_hash}"),
         ]
     ]
 
