@@ -40,7 +40,7 @@ async def stop_user_from_doing_anything_callback(client, callback: CallbackQuery
     """
     Checks if user is allowed to use MediaCenterBot via CallbackQuery
     """
-    if callback.message.from_user.id not in User().all_user_ids():
+    if callback.message.chat.id not in User().all_user_ids():
         if callback.message.chat and callback.message.chat.type in {'group', 'supergroup'}:
             await callback.answer('Groups not allowed.')
             await callback.edit_message_text(GROUPS_NOT_ALLOWED_MESSAGE)
