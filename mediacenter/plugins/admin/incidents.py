@@ -38,11 +38,12 @@ def format_message(incident):
 async def start(bot: MediaCenterBot, message: Message):
     incident = [x for x in Incident().find_latest_incident()]
     await message.reply(format_message(incident[0]))
+    print("Sent last incident message to admin")
 
 
 # Command help section
 add_command_help(
     'incidents', [
-        ['/lastIncident', 'Shows the latest incident that occurred on {BOT_NAME}..'],
+        ['/lastIncident', 'Shows the latest incident that occurred on {BOT_NAME}...'],
     ]
 )
