@@ -11,4 +11,3 @@ def database():
     )
     db = client[DB_NAME]
     return db
-

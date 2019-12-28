@@ -4,6 +4,8 @@ from pyrogram import Message, InlineKeyboardButton, InlineKeyboardMarkup, Callba
 from pyrogram import errors as pyro_errors
 from mediacenter.utils.custom_filters import CustomFilters
 from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
+
+
 # from mediacenter.utils.helpers import split_list
 
 
@@ -43,6 +45,7 @@ async def list_categories(client: MediaCenterBot, callback: CallbackQuery):
         )
     except pyro_errors.MessageNotModified:
         pass
+
 
 # Command help section
 add_command_help(

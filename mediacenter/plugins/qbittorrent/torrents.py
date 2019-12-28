@@ -61,9 +61,9 @@ async def torrents(bot: MediaCenterBot, message: Message, **kwargs):
         buttons.append(button)
 
     if kwargs.get('back'):
-            await message.edit_text("Here is all the torrents available", reply_markup=InlineKeyboardMarkup(buttons))
+        await message.edit_text("Here is all the torrents available", reply_markup=InlineKeyboardMarkup(buttons))
     else:
-            await message.reply("Here is all the torrents available", reply_markup=InlineKeyboardMarkup(buttons))
+        await message.reply("Here is all the torrents available", reply_markup=InlineKeyboardMarkup(buttons))
 
 
 @MediaCenterBot.on_callback_query(CustomFilters.callback_query('torrent'))

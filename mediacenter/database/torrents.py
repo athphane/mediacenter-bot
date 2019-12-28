@@ -39,4 +39,3 @@ class CompletedTorrents:
         new_values = {"$set": data}
 
         self.completed_torrents.update_one(query, new_values)
-
