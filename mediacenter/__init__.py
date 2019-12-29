@@ -24,7 +24,7 @@ logging.basicConfig(
 LOGS = logging.getLogger(__name__)
 
 # Manually setting APScheduler logger level because it's not set by default.
-logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+logging.getLogger('apscheduler').setLevel(logging.CRITICAL)
 
 # Read from config file
 name = MediaCenterBot().__class__.__name__.lower()
