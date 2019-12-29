@@ -18,12 +18,12 @@ async def notify_torrent_complete(client: MediaCenterBot):
 
         try:
             await client.send_message(ADMIN, message)
-        except:
+            print("Torrent notifications sent.")
+        except Exception:
             print("The item will be retried on the next round of notifications.")
         else:
             CompletedTorrents().mark_as_notified(torrent)
 
 add_job(
     notify_torrent_complete,
-    seconds=30
 )
