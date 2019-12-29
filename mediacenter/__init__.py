@@ -5,6 +5,11 @@ from mediacenter.mediacenterbot import MediaCenterBot
 import ast
 import logging
 import sys
+import os
+
+# Created logs folder if it is not there. Needed for logging.
+if not os.path.exists('logs'):
+    os.makedirs('logs')
 
 # Logging at the start to catch everything
 logging.basicConfig(
