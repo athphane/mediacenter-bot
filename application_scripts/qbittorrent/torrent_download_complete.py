@@ -1,24 +1,14 @@
-import sys
-import time
-import random
 import math
 import pymongo
+import sys
+import time
 
 # ==========================
 # Script variables
 # ==========================
-test = True  # Sends dummy data for the name, label and size
 MONGO_URL = 'localhost'
 DB_USERNAME = None
 DB_PASSWORD = None
-
-# ==========================
-# Static variables
-# ===========================
-names = ['ubuntu-16.04.1-desktop-amd64.iso', 'Storks (2016) [1080p] [YTS.AG]', 'Mom.S04E08.HDTV.x264-LOL[eztv].mkv',
-         '20160915_madsonic-6.1.8700-setup-x86.zip', 'Peace Is The Mission']
-labels = ['Movie', 'TV Show', 'Music', 'Program', 'Game', 'eBook']
-sizes = ['500000', '20000', '777758998']
 
 
 # ==========================
@@ -51,14 +41,9 @@ if __name__ == '__main__':
     date_run = time.asctime(time.localtime())
 
     # Sys args or random
-    if not test:
-        torrent_name = sys.argv[1]
-        torrent_category = sys.argv[2]
-        torrent_size = sys.argv[3]
-    else:
-        torrent_name = random.choice(names)
-        torrent_category = random.choice(labels)
-        torrent_size = random.choice(sizes)
+    torrent_name = sys.argv[1]
+    torrent_category = sys.argv[2]
+    torrent_size = sys.argv[3]
 
     # Database connection
     db = database()['completed_torrents']

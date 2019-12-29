@@ -8,3 +8,4 @@ mediacenterbot.ini
 unknown_errors.txt
 *.log*
 experiments/
+application_scripts_dev
