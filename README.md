@@ -12,8 +12,7 @@ or signed up for. You must do all. It is a cardinal sin if you don't.
 * `virtualenv` installed so that the packages don't interfere with other system packages. 
 * [MongoDB](https://www.mongodb.com) on your server or a free server from
 [MongoDB Atlas](https://www.mongodb.com/cloud/atlas). Installation instructions are out of 
-scope for this README. (I recommend Atlas as I used it during
-development with no issues.)
+scope for this README.
 
 ## Installing
 #### One Click Deploy

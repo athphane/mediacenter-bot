@@ -7,8 +7,8 @@ import time
 # Script variables
 # ==========================
 MONGO_URL = 'localhost'
-DB_USERNAME = None
-DB_PASSWORD = None
+DB_USERNAME = None  # MongoDB username as string if there is any.
+DB_PASSWORD = None  # MongoDB username's password as string if there is any.
 
 
 # ==========================
