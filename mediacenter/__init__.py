@@ -55,12 +55,12 @@ QBT_PASS = config.get('qbittorrent', 'qbt_password')
 SONARR_API_URL = config.get('sonarr', 'sonarr_api_url')
 SONARR_API_KEY = config.get('sonarr', 'sonarr_api_key')
 
-# Extra details
-__version__ = '0.2.0'
-__author__ = 'athphane'
-
 # Scheduler
 scheduler = AsyncIOScheduler()
 
 # Global Variables
 client = None
+
+# Extra details
+__version__ = '0.2.0'
+__author__ = 'Athfan Khaleel'

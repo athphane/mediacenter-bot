@@ -6,11 +6,8 @@ from mediacenter.utils.custom_filters import CustomFilters
 from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
 
 
-# from mediacenter.utils.helpers import split_list
-
-
 @MediaCenterBot.on_message(CustomFilters.command("categories"))
-async def categories(bot: MediaCenterBot, message: Message):
+async def all_categories(bot: MediaCenterBot, message: Message):
     await message.reply(
         "Categories\nSelect an action.",
         reply_markup=InlineKeyboardMarkup(
@@ -50,6 +47,6 @@ async def list_categories(client: MediaCenterBot, callback: CallbackQuery):
 # Command help section
 add_command_help(
     'categories', [
-        ['/categories', 'Start the category '],
+        ['/categories', 'Start the category'],
     ]
 )
