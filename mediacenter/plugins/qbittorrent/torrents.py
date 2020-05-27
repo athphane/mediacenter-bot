@@ -43,7 +43,7 @@ async def send_torrent_list(bot: MediaCenterBot, message: Message):
 
 
 @MediaCenterBot.on_message(CustomFilters.command("torrents"))
-async def torrents(bot: MediaCenterBot, message: Message, **kwargs):
+async def all_torrents(bot: MediaCenterBot, message: Message, **kwargs):
     buttons = []
 
     torrents = QBT().torrents()

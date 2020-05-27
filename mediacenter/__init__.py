@@ -5,6 +5,11 @@ from mediacenter.mediacenterbot import MediaCenterBot
 import ast
 import logging
 import sys
+import os
+
+# Created logs folder if it is not there. Needed for logging.
+if not os.path.exists('logs'):
+    os.makedirs('logs')
 
 # Logging at the start to catch everything
 logging.basicConfig(
@@ -19,7 +24,7 @@ logging.basicConfig(
 LOGS = logging.getLogger(__name__)
 
 # Manually setting APScheduler logger level because it's not set by default.
-logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+logging.getLogger('apscheduler').setLevel(logging.INFO)
 
 # Read from config file
 name = MediaCenterBot().__class__.__name__.lower()
@@ -50,12 +55,12 @@ QBT_PASS = config.get('qbittorrent', 'qbt_password')
 SONARR_API_URL = config.get('sonarr', 'sonarr_api_url')
 SONARR_API_KEY = config.get('sonarr', 'sonarr_api_key')
 
-# Extra details
-__version__ = '0.2.0'
-__author__ = 'athphane'
-
 # Scheduler
 scheduler = AsyncIOScheduler()
 
 # Global Variables
 client = None
+
+# Extra details
+__version__ = '0.2.0'
+__author__ = 'Athfan Khaleel'

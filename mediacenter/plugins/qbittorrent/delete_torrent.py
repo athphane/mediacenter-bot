@@ -1,7 +1,7 @@
 from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Emoji
 from mediacenter.utils.custom_filters import CustomFilters
-from mediacenter.plugins.qbittorrent.torrents import torrents
+from mediacenter.plugins.qbittorrent.torrents import all_torrents
 from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
 import time
 
@@ -40,7 +40,7 @@ async def delete_torrent(client, callback: CallbackQuery, **kwargs):
         )
         time.sleep(2)
         await callback.message.delete()
-        await torrents(client, callback.message)
+        await all_torrents(client, callback.message)
     except Exception:
         await callback.answer("ERROR")
         await callback.message.reply(f"{Emoji.SKULL} **An error has occurred** {Emoji.SKULL}")

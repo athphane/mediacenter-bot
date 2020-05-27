@@ -20,9 +20,8 @@ async def controls(bot: MediaCenterBot, message: Message):
 @MediaCenterBot.on_callback_query(CustomFilters.callback_query('pause_all', payload=False))
 async def pause_all(client, callback: CallbackQuery):
     try:
-        print("hits")
-        QBT().pause_all()
         await callback.answer("Pausing all torrents.")
+        QBT().pause_all()
     except:
         await callback.answer("An error occurred..")
         await callback.edit_message_text("An error occurred. Please retry later..")
@@ -31,8 +30,8 @@ async def pause_all(client, callback: CallbackQuery):
 @MediaCenterBot.on_callback_query(CustomFilters.callback_query('resume_all', payload=False))
 async def resume_all(client, callback: CallbackQuery):
     try:
-        QBT().resume_all()
         await callback.answer("Resuming all torrents.")
+        QBT().resume_all()
     except:
         await callback.answer("An error occurred..")
         await callback.edit_message_text("An error occurred. Please retry later..")
