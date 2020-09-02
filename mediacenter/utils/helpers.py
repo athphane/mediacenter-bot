@@ -1,6 +1,6 @@
 from types import SimpleNamespace
 
-from pyrogram import User
+from pyrogram.types import User
 
 
 def split_list(input_list, n):

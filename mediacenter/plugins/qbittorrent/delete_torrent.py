@@ -1,12 +1,13 @@
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Emoji
-from mediacenter.utils.custom_filters import CustomFilters
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram import emoji
+from mediacenter.utils import custom_filters
 from mediacenter.plugins.qbittorrent.torrents import all_torrents
 from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
 import time
 
 
-@MediaCenterBot.on_callback_query(CustomFilters.callback_query('delete_tor'))
+@MediaCenterBot.on_callback_query(custom_filters.callback_query('delete_tor'))
 async def show_delete_options(client, callback: CallbackQuery):
     def delete_buttons(torrent_hash):
         buttons = [
@@ -25,7 +26,7 @@ async def show_delete_options(client, callback: CallbackQuery):
     )
 
 
-@MediaCenterBot.on_callback_query(CustomFilters.callback_query('deltor'))
+@MediaCenterBot.on_callback_query(custom_filters.callback_query('deltor'))
 async def delete_torrent(client, callback: CallbackQuery, **kwargs):
     torrent_hash = kwargs.get('torrent_hash') if kwargs.get('torrent_hash') else callback.payload
     try:
@@ -36,17 +37,17 @@ async def delete_torrent(client, callback: CallbackQuery, **kwargs):
 
         await callback.answer("SUCCESS")
         await callback.message.reply(
-            f"{Emoji.FIRE} **Torrent {'and Files ' if kwargs.get('files') else ''}Deleted** {Emoji.FIRE}"
+            f"{emoji.FIRE} **Torrent {'and Files ' if kwargs.get('files') else ''}Deleted** {emoji.FIRE}"
         )
         time.sleep(2)
         await callback.message.delete()
         await all_torrents(client, callback.message)
     except Exception:
         await callback.answer("ERROR")
-        await callback.message.reply(f"{Emoji.SKULL} **An error has occurred** {Emoji.SKULL}")
+        await callback.message.reply(f"{emoji.SKULL} **An error has occurred** {emoji.SKULL}")
 
 
-@MediaCenterBot.on_callback_query(CustomFilters.callback_query('delfile'))
+@MediaCenterBot.on_callback_query(custom_filters.callback_query('delfile'))
 async def delete_only_torrent(client, callback: CallbackQuery):
     torrent_hash = callback.payload
     await delete_torrent(client, callback, torrent_hash=torrent_hash, files=True)

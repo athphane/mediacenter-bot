@@ -1,11 +1,11 @@
 from mediacenter import ALLOWED_USERS
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import Message, Filters
+from pyrogram.types import Message
 from mediacenter.plugins.admin.help import add_command_help
-from mediacenter.utils.custom_filters import CustomFilters
+from mediacenter.utils import custom_filters
 
 
-@MediaCenterBot.on_message(CustomFilters.command("start"))
+@MediaCenterBot.on_message(custom_filters.command("start"))
 async def start(bot: MediaCenterBot, message: Message):
     await message.reply(f"Welcome to {MediaCenterBot.__name__}! I help you control your media center.")
 
@@ -15,7 +15,7 @@ async def real_restart(bot: MediaCenterBot, message: Message):
     await message.reply("Restarted!")
 
 
-@MediaCenterBot.on_message(CustomFilters.allowed_users() & CustomFilters.command("restart"))
+@MediaCenterBot.on_message(custom_filters.allowed_users & custom_filters.command("restart"))
 async def restart(bot: MediaCenterBot, message: Message):
     await message.reply(f"Restarting {MediaCenterBot.__name__}.")
     import asyncio

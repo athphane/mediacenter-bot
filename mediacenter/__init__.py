@@ -32,7 +32,7 @@ config_file = f"{name}.ini"
 config = ConfigParser()
 config.read(config_file)
 
-# The bot username is required cause CustomFilters.command needs it for the regex.
+# The bot username is required cause custom_filters.command needs it for the regex.
 try:
     BOT_USERNAME = config.get(name, 'bot_username')
 except:

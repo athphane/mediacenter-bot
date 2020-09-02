@@ -1,12 +1,12 @@
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import Message
-from mediacenter.utils.custom_filters import CustomFilters
+from pyrogram.types import Message
+from mediacenter.utils import custom_filters
 from mediacenter import BOT_USERNAME
 
 CMD_HELP = {}
 
 
-@MediaCenterBot.on_message(CustomFilters.command("help"))
+@MediaCenterBot.on_message(custom_filters.command("help"))
 async def module_help(bot: MediaCenterBot, message: Message):
     cmd = message.command
 

@@ -9,7 +9,12 @@ class SonarrAPI(object):
         self.key = SONARR_API_KEY
 
     def url(self, endpoint, params: dict = None):
-        # default params
+        """
+        URL constructor
+        :param endpoint:
+        :param params:
+        :return:
+        """
         if params is None:
             params = {}
 
@@ -18,7 +23,12 @@ class SonarrAPI(object):
         return f"{self.host}/{endpoint}?{params}"
 
     def request_get(self, url, data=None):
-        """Wrapper on the requests.get"""
+        """
+        Wrapper on the requests.get
+        :param url:
+        :param data:
+        :return:
+        """
         if data is None:
             data = {}
         headers = {
@@ -29,13 +39,20 @@ class SonarrAPI(object):
 
     # ENDPOINT SERIES
     def get_series(self):
-        """Get all of the series that are added to sonarr."""
+        """
+        Get all of the series that are added to sonarr.
+        :return:
+        """
         res = self.request_get(self.url('series'))
         return res.json()
 
     # ENDPOINT EPISODES
     def get_episodes(self, series_id):
-        """Get all of the episodes of a given series id"""
+        """
+        Get all of the episodes of a given series id
+        :param series_id:
+        :return:
+        """
         params = {
             'seriesId': series_id
         }

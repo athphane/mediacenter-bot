@@ -1,7 +1,8 @@
-https://github.com/pyrogram/pyrogram/archive/asyncio.zip
+pyrogram
 tgcrypto
 requests
 urllib3
 pymongo
 dnspython
 apscheduler
+deprecation

@@ -14,7 +14,7 @@ class MediaCenterBot(Client):
             name,
             bot_token=config.get(name, "bot_token"),
             config_file=config_file,
-            workers=16,
+            # workers=16,
             plugins=dict(root="mediacenter/plugins"),
             workdir="../"
         )
@@ -23,6 +23,6 @@ class MediaCenterBot(Client):
         await super().start()
         print(f"{self.__class__.__name__} started. Hi.")
 
-    async def stop(self):
+    async def stop(self, *args):
         await super().stop()
         print(f"{self.__class__.__name__} stopped. Bye.")

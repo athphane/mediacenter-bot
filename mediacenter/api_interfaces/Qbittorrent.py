@@ -1,5 +1,8 @@
-import requests
 import json
+
+import requests
+from deprecation import deprecated
+
 from mediacenter import QBT_URL, QBT_USER, QBT_PASS
 
 
@@ -79,12 +82,26 @@ class TorrentClient:
 
     @property
     def api_version(self):
+        """
+        Get version of qBitTorrent
+
+        :return:
+        """
         return self._get('app/version')
 
     def shutdown(self):
+        """
+        Shutdown qBitTorrent
+        :return:
+        """
         return self._get('app/shutdown')
 
     def torrents(self):
+        """
+        Get all torrents
+
+        :return:
+        """
         return self._get('torrents/info')
 
     def add_all_info(self, properties, torrent_hash):
@@ -101,26 +118,66 @@ class TorrentClient:
         return properties
 
     def single_torrent(self, torrent_hash):
+        """
+        Get torrent properties
+
+        :param torrent_hash:
+        :return:
+        """
         properties = self._get(f'torrents/properties?hash={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def pause_torrent(self, torrent_hash):
+        """
+        Pause a torrent
+
+        :param torrent_hash:
+        :return:
+        """
         properties = self._get(f'torrents/pause?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def resume_torrent(self, torrent_hash):
+        """
+        Resume a torrent
+
+        :param torrent_hash:
+        :return:
+        """
         properties = self._get(f'torrents/resume?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
-    def delete_torrent(self, torrent_hash):
-        properties = self._get(f'torrents/delete?hashes={torrent_hash}&deleteFiles=false')
+    def delete_torrent(self, torrent_hash, delete_files=False):
+        """
+        Delete torrent with or without files
+
+        :param torrent_hash:
+        :param delete_files:
+        :return:
+        """
+        properties = self._get(
+            f"torrents/delete?hashes={torrent_hash}&deleteFiles={'false' if not delete_files else 'true'}"
+        )
         return self.add_all_info(properties, torrent_hash)
 
+    @deprecated(details="We use delete_torrent function instead.")
     def delete_torrent_files(self, torrent_hash):
+        """
+        Delete torrent and its files.
+        deprecated
+        :param torrent_hash:
+        :return:
+        """
         properties = self._get(f'torrents/delete?hashes={torrent_hash}&deleteFiles=true')
         return self.add_all_info(properties, torrent_hash)
 
     def add_torrent(self, link):
+        """
+        Add new torrent from link
+
+        :param link:
+        :return:
+        """
         data = {
             'urls': link,
         }
@@ -128,36 +185,86 @@ class TorrentClient:
         return self._post(f'torrents/add', data=data)
 
     def find_torrent_name(self, torrent_hash):
+        """
+        Find torrent name based on hash
+
+        :param torrent_hash:
+        :return:
+        """
         for x in self.torrents():
             if x['hash'] == torrent_hash:
                 return x['name']
 
     def pause_all(self):
+        """
+        Pause all torrents
+
+        :return:
+        """
         return self._get(f'torrents/pause?hashes=all')
 
     def resume_all(self):
+        """
+        Resume all torrents
+
+        :return:
+        """
         return self._get(f'torrents/resume?hashes=all')
 
     def increase_priority(self, torrent_hash):
+        """
+        Increase torrent priority
+        :param torrent_hash:
+        :return:
+        """
         properties = self._get(f'torrents/increasePrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def decrease_priority(self, torrent_hash):
+        """
+        Decrease torrent priority
+
+        :param torrent_hash:
+        :return:
+        """
         properties = self._get(f'torrents/decreasePrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def top_priority(self, torrent_hash):
+        """
+        Set torrent as highest priority
+
+        :param torrent_hash:
+        :return:
+        """
         properties = self._get(f'torrents/topPrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def min_priority(self, torrent_hash):
+        """
+        Set torrent as lowest priority
+
+        :param torrent_hash:
+        :return:
+        """
         properties = self._get(f'torrents/bottomPrio?hashes={torrent_hash}')
         return self.add_all_info(properties, torrent_hash)
 
     def all_categories(self):
+        """
+        Get all categories
+
+        :return:
+        """
         return self._get(f'torrents/categories')
 
     def add_category(self, category_name):
+        """
+        Add a new category to qBitTorrent
+
+        :param category_name:
+        :return:
+        """
         data = {
             'category': category_name,
             'savePath': None

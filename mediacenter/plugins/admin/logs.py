@@ -1,18 +1,19 @@
 import time
 import os
-from mediacenter.utils.custom_filters import CustomFilters
+from mediacenter.utils import custom_filters
 from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import Message, Emoji
+from pyrogram.types import Message
+from pyrogram import emoji
 
 
-@MediaCenterBot.on_message(CustomFilters.command(['log', 'logs', 'logger']))
+@MediaCenterBot.on_message(custom_filters.command(['log', 'logs', 'logger']))
 async def send_log_file(bot: MediaCenterBot, message: Message):
     if os.path.exists('logs/mediacenter.log'):
         await message.reply_chat_action('upload_document')
         await message.reply_document(
             document='logs/mediacenter.log',
-            caption=f"{Emoji.CLIPBOARD}: `{time.ctime(time.time())}`"
+            caption=f"{emoji.CLIPBOARD}: `{time.ctime(time.time())}`"
         )
     else:
         await message.reply("Oddly enough, there is no log file. Try again?")

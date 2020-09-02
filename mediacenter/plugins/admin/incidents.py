@@ -1,7 +1,7 @@
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import Message
+from pyrogram.types import Message
 from mediacenter.plugins.admin.help import add_command_help
-from mediacenter.utils.custom_filters import CustomFilters
+from mediacenter.utils import custom_filters
 from mediacenter.database.incidents import Incident
 from mediacenter.utils.helpers import GetUserMentionable
 
@@ -16,7 +16,7 @@ def format_message(incident):
     return INCIDENT_MESSAGE
 
 
-@MediaCenterBot.on_message(CustomFilters.command("lastIncident", case_sensitive=True))
+@MediaCenterBot.on_message(custom_filters.command("lastIncident", case_sensitive=True))
 async def start(bot: MediaCenterBot, message: Message):
     incident = [x for x in Incident().find_latest_incident()]
     await message.reply(format_message(incident[0]))

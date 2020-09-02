@@ -13,28 +13,20 @@ class CompletedTorrents:
 
     def all_torrents_by_category(self, category):
         torrents = self.completed_torrents.find(
-            {
-                'category': category
-            },
+            {'category': category},
             {'_id': False}
         )
         return torrents
 
     def to_be_notified(self):
         return self.completed_torrents.find(
-            {
-                'notified': False
-            }
+            {'notified': False}
         )
 
     def mark_as_notified(self, torrent):
-        query = {
-            "_id": torrent['_id'],
-        }
+        query = {"_id": torrent['_id']}
 
-        data = {
-            "notified": True
-        }
+        data = {"notified": True}
 
         new_values = {"$set": data}
 

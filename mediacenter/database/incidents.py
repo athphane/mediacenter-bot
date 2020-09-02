@@ -1,6 +1,6 @@
 import json
 
-from pyrogram import Message
+from pyrogram.types import Message
 from mediacenter.database import database
 from datetime import datetime
 

@@ -2,14 +2,15 @@ from mediacenter import ALLOWED_USERS, ADMIN
 from mediacenter.database.incidents import Incident
 from mediacenter.database.users import User
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import Message, Emoji, CallbackQuery
+from pyrogram import emoji
+from pyrogram.types import Message, CallbackQuery
 
 # CONSTANTS
-NOT_ALLOWED_MESSAGE = (f'**{Emoji.FIRE} You are not allowed! {Emoji.FIRE}\n'
-                       f'{Emoji.FIRE} This incident will be reported! {Emoji.FIRE}**')
+NOT_ALLOWED_MESSAGE = (f'**{emoji.FIRE} You are not allowed! {emoji.FIRE}\n'
+                       f'{emoji.FIRE} This incident will be reported! {emoji.FIRE}**')
 
-GROUPS_NOT_ALLOWED_MESSAGE = (f'**{Emoji.FIRE} Groups are not allowed! {Emoji.FIRE}\n'
-                              f'{Emoji.FIRE} This incident will be reported! {Emoji.FIRE}**')
+GROUPS_NOT_ALLOWED_MESSAGE = (f'**{emoji.FIRE} Groups are not allowed! {emoji.FIRE}\n'
+                              f'{emoji.FIRE} This incident will be reported! {emoji.FIRE}**')
 
 
 @MediaCenterBot.on_message(group=-1)

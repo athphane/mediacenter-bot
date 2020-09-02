@@ -1,9 +1,10 @@
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, Emoji
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram import emoji
 import pyrogram.errors as pyro_errors
 from mediacenter.utils.converters import human_bytes, human_unix_time, time_delta
 from time import sleep
-from mediacenter.utils.custom_filters import CustomFilters
+from mediacenter.utils import custom_filters
 from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
 
@@ -27,7 +28,7 @@ def make_torrent_buttons(torrent_hash):
     return buttons
 
 
-@MediaCenterBot.on_message(CustomFilters.command("list"))
+@MediaCenterBot.on_message(custom_filters.command("list"))
 async def send_torrent_list(bot: MediaCenterBot, message: Message):
     torrents = QBT().torrents()
     if not len(torrents) == 0:
@@ -39,16 +40,16 @@ async def send_torrent_list(bot: MediaCenterBot, message: Message):
 
         await message.reply(text)
     else:
-        await message.reply(f"**You have no torrents!** {Emoji.EXCLAMATION_MARK}")
+        await message.reply(f"**You have no torrents!** {emoji.EXCLAMATION_MARK}")
 
 
-@MediaCenterBot.on_message(CustomFilters.command("torrents"))
+@MediaCenterBot.on_message(custom_filters.command("torrents"))
 async def all_torrents(bot: MediaCenterBot, message: Message, **kwargs):
     buttons = []
 
     torrents = QBT().torrents()
     if len(torrents) == 0:
-        await message.reply(f"**You have no torrents!** {Emoji.EXCLAMATION_MARK}")
+        await message.reply(f"**You have no torrents!** {emoji.EXCLAMATION_MARK}")
         return
 
     for x in torrents:
@@ -66,7 +67,7 @@ async def all_torrents(bot: MediaCenterBot, message: Message, **kwargs):
         await message.reply("Here is all the torrents available", reply_markup=InlineKeyboardMarkup(buttons))
 
 
-@MediaCenterBot.on_callback_query(CustomFilters.callback_query('torrent'))
+@MediaCenterBot.on_callback_query(custom_filters.callback_query('torrent'))
 async def torrent(client, callback: CallbackQuery, **kwargs):
     if kwargs.get('torrent_hash'):
         torrent_hash = kwargs.get('torrent_hash')
@@ -120,19 +121,19 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
         await message.delete()
 
 
-@MediaCenterBot.on_message(CustomFilters.command("add"))
+@MediaCenterBot.on_message(custom_filters.command("add"))
 async def add_torrent(bot: MediaCenterBot, message: Message):
     try:
         torrent_link = message.command[1]
         added_torrent = QBT().add_torrent(torrent_link)
 
         if added_torrent == "Ok.":
-            await message.reply(f"**Torrent Added Successfully! {Emoji.PARTY_POPPER}**")
+            await message.reply(f"**Torrent Added Successfully! {emoji.PARTY_POPPER}**")
         else:
             await message.reply(
                 f"Either that was an incorrect torrent link or you just sent some gibberish "
-                f"{Emoji.FACE_VOMITING} "
-                f"Nothing I can do to fix that {Emoji.MAN_SHRUGGING_MEDIUM_LIGHT_SKIN_TONE}"
+                f"{emoji.FACE_VOMITING} "
+                f"Nothing I can do to fix that {emoji.MAN_SHRUGGING_MEDIUM_LIGHT_SKIN_TONE}"
             )
 
     except IndexError:
