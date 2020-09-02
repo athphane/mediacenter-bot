@@ -1,9 +1,10 @@
+from pyrogram import emoji
+from pyrogram.types import Message, CallbackQuery
+
 from mediacenter import ALLOWED_USERS, ADMIN
 from mediacenter.database.incidents import Incident
 from mediacenter.database.users import User
 from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram import emoji
-from pyrogram.types import Message, CallbackQuery
 
 # CONSTANTS
 NOT_ALLOWED_MESSAGE = (f'**{emoji.FIRE} You are not allowed! {emoji.FIRE}\n'
@@ -14,7 +15,7 @@ GROUPS_NOT_ALLOWED_MESSAGE = (f'**{emoji.FIRE} Groups are not allowed! {emoji.FI
 
 
 @MediaCenterBot.on_message(group=-1)
-async def stop_user_from_doing_anything(bot: MediaCenterBot, message: Message):
+async def stop_user_from_doing_anything(_, message: Message):
     """
     Checks if user is allowed to use MediaCenterBot
     """
@@ -37,7 +38,7 @@ async def stop_user_from_doing_anything(bot: MediaCenterBot, message: Message):
 
 
 @MediaCenterBot.on_callback_query(group=-1)
-async def stop_user_from_doing_anything_callback(client, callback: CallbackQuery):
+async def stop_user_from_doing_anything_callback(_, callback: CallbackQuery):
     """
     Checks if user is allowed to use MediaCenterBot via CallbackQuery
     """

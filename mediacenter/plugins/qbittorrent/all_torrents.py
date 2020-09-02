@@ -1,11 +1,12 @@
-from mediacenter.mediacenterbot import MediaCenterBot
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Message
-from mediacenter.utils import custom_filters
+
 from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
+from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter.utils import custom_filters
 
 
 @MediaCenterBot.on_message(custom_filters.command("controls"))
-async def controls(bot: MediaCenterBot, message: Message):
+async def controls(_, message: Message):
     await message.reply(
         "Here are some master controls..",
         reply_markup=InlineKeyboardMarkup([
@@ -18,7 +19,7 @@ async def controls(bot: MediaCenterBot, message: Message):
 
 
 @MediaCenterBot.on_callback_query(custom_filters.callback_query('pause_all', payload=False))
-async def pause_all(client, callback: CallbackQuery):
+async def pause_all(_, callback: CallbackQuery):
     try:
         await callback.answer("Pausing all torrents.")
         QBT().pause_all()
@@ -28,7 +29,7 @@ async def pause_all(client, callback: CallbackQuery):
 
 
 @MediaCenterBot.on_callback_query(custom_filters.callback_query('resume_all', payload=False))
-async def resume_all(client, callback: CallbackQuery):
+async def resume_all(_, callback: CallbackQuery):
     try:
         await callback.answer("Resuming all torrents.")
         QBT().resume_all()

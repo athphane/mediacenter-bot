@@ -1,14 +1,15 @@
-from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram.types import Message
-from mediacenter.utils import custom_filters
-from mediacenter import BOT_USERNAME
-from mediacenter.utils.helpers import split_list
 from prettytable import PrettyTable
+from pyrogram.types import Message
+
+from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter.utils import custom_filters
+from mediacenter.utils.helpers import split_list
+
 CMD_HELP = {}
 
 
 @MediaCenterBot.on_message(custom_filters.command("help"))
-async def module_help(bot: MediaCenterBot, message: Message):
+async def module_help(_, message: Message):
     cmd = message.command
 
     help_arg = ""

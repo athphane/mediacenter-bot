@@ -1,12 +1,14 @@
-from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram import emoji
-import pyrogram.errors as pyro_errors
-from mediacenter.utils.converters import human_bytes, human_unix_time, time_delta
 from time import sleep
-from mediacenter.utils import custom_filters
-from mediacenter.plugins.admin.help import add_command_help
+
+import pyrogram.errors as pyro_errors
+from pyrogram import emoji
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+
 from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
+from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter.plugins.admin.help import add_command_help
+from mediacenter.utils import custom_filters
+from mediacenter.utils.converters import human_bytes, human_unix_time, time_delta
 
 
 def make_torrent_buttons(torrent_hash):
@@ -29,7 +31,7 @@ def make_torrent_buttons(torrent_hash):
 
 
 @MediaCenterBot.on_message(custom_filters.command("list"))
-async def send_torrent_list(bot: MediaCenterBot, message: Message):
+async def send_torrent_list(_, message: Message):
     torrents = QBT().torrents()
     if not len(torrents) == 0:
         text = ""
@@ -44,7 +46,7 @@ async def send_torrent_list(bot: MediaCenterBot, message: Message):
 
 
 @MediaCenterBot.on_message(custom_filters.command("torrents"))
-async def all_torrents(bot: MediaCenterBot, message: Message, **kwargs):
+async def all_torrents(_, message: Message, **kwargs):
     buttons = []
 
     torrents = QBT().torrents()
@@ -68,7 +70,7 @@ async def all_torrents(bot: MediaCenterBot, message: Message, **kwargs):
 
 
 @MediaCenterBot.on_callback_query(custom_filters.callback_query('torrent'))
-async def torrent(client, callback: CallbackQuery, **kwargs):
+async def torrent(_, callback: CallbackQuery, **kwargs):
     if kwargs.get('torrent_hash'):
         torrent_hash = kwargs.get('torrent_hash')
     else:
@@ -122,7 +124,7 @@ async def torrent(client, callback: CallbackQuery, **kwargs):
 
 
 @MediaCenterBot.on_message(custom_filters.command("add"))
-async def add_torrent(bot: MediaCenterBot, message: Message):
+async def add_torrent(_, message: Message):
     try:
         torrent_link = message.command[1]
         added_torrent = QBT().add_torrent(torrent_link)

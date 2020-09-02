@@ -1,8 +1,9 @@
+import time
+
+from mediacenter import ADMIN
 from mediacenter.database.torrents import CompletedTorrents
 from mediacenter.mediacenterbot import MediaCenterBot
 from mediacenter.scheduler_system.create_jobs import add_job
-from mediacenter import ADMIN
-import time
 
 
 async def notify_torrent_complete(client: MediaCenterBot):
@@ -26,6 +27,7 @@ async def notify_torrent_complete(client: MediaCenterBot):
             print("Torrent notifications sent.")
 
         time.sleep(0.3)
+
 
 add_job(
     notify_torrent_complete,

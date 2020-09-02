@@ -1,13 +1,14 @@
-from mediacenter.plugins.admin.help import add_command_help
-from mediacenter.mediacenterbot import MediaCenterBot
-from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram import errors as pyro_errors
-from mediacenter.utils import custom_filters
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+
 from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
+from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter.plugins.admin.help import add_command_help
+from mediacenter.utils import custom_filters
 
 
 @MediaCenterBot.on_message(custom_filters.command("categories"))
-async def all_categories(bot: MediaCenterBot, message: Message):
+async def all_categories(_, message: Message):
     await message.reply(
         "Categories\nSelect an action.",
         reply_markup=InlineKeyboardMarkup(
@@ -19,7 +20,7 @@ async def all_categories(bot: MediaCenterBot, message: Message):
 
 
 @MediaCenterBot.on_callback_query(custom_filters.callback_query('list_categories', False))
-async def list_categories(client: MediaCenterBot, callback: CallbackQuery):
+async def list_categories(_, callback: CallbackQuery):
     categories: dict = QBT().all_categories()
 
     categories_list = []

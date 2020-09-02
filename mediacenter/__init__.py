@@ -1,11 +1,13 @@
-from configparser import ConfigParser
-from logging.handlers import TimedRotatingFileHandler
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from mediacenter.mediacenterbot import MediaCenterBot
 import ast
 import logging
-import sys
 import os
+import sys
+from configparser import ConfigParser
+from logging.handlers import TimedRotatingFileHandler
+
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+
+from mediacenter.mediacenterbot import MediaCenterBot
 
 # Created logs folder if it is not there. Needed for logging.
 if not os.path.exists('logs'):
@@ -64,3 +66,5 @@ client = None
 # Extra details
 __version__ = '0.2.0'
 __author__ = 'Athfan Khaleel'
+
+MediaCenterBot = MediaCenterBot()
