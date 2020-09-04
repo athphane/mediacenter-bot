@@ -29,6 +29,6 @@ async def notify_torrent_complete(client: MediaCenterBot):
         time.sleep(0.3)
 
 
-add_job(
-    notify_torrent_complete,
-)
+# add_job(
+#     notify_torrent_complete,
+# )

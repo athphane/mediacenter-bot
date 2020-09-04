@@ -1,8 +1,8 @@
-from pyrogram.types import Message
+from pyrogram.types import Message, User
 from mediacenter.database import database
 
 
-class User:
+class UserDB:
     def __init__(self):
         self.users = database()['users']
 
@@ -81,3 +81,32 @@ class User:
         new_values = {"$set": data}
 
         self.users.update_one(query, new_values)
+
+    def current_module(self, user: User):
+        """
+        Find the user's current in use module
+
+        :param user:
+        :return:
+        """
+        query = {
+            "id": user.id
+        }
+
+        return self.users.find_one(query)['module']
+
+    def set_module(self, user: User, module):
+        """
+        Set active module for user
+
+        :param user:
+        :param module:
+        :return:
+        """
+        query = {"id": user.id}
+
+        data = {"module": module}
+
+        new_values = {"$set": data}
+
+        return self.users.update(query, new_values)

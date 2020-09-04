@@ -1,5 +1,5 @@
 import json
-
+from .torrent import Torrent
 import requests
 from deprecation import deprecated
 

@@ -6,3 +6,4 @@ pymongo
 dnspython
 apscheduler
 deprecation
+aria2p

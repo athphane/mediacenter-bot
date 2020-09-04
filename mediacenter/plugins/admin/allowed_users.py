@@ -3,7 +3,7 @@ from pyrogram.types import Message, CallbackQuery
 
 from mediacenter import ALLOWED_USERS, ADMIN
 from mediacenter.database.incidents import Incident
-from mediacenter.database.users import User
+from mediacenter.database.users import UserDB
 from mediacenter.mediacenterbot import MediaCenterBot
 
 # CONSTANTS
@@ -20,11 +20,11 @@ async def stop_user_from_doing_anything(_, message: Message):
     Checks if user is allowed to use MediaCenterBot
     """
     # Updates user details if they are supposed to be in the system
-    if message.from_user.id in User().all_user_ids():
-        User().update_user(message)
+    if message.from_user.id in UserDB().all_user_ids():
+        UserDB().update_user(message)
         pass
 
-    if message.from_user.id not in User().all_user_ids():
+    if message.from_user.id not in UserDB().all_user_ids():
         if message.chat and message.chat.type in {"group", "supergroup"}:
             await message.reply(GROUPS_NOT_ALLOWED_MESSAGE)
             Incident().create_incident(message)
@@ -42,7 +42,7 @@ async def stop_user_from_doing_anything_callback(_, callback: CallbackQuery):
     """
     Checks if user is allowed to use MediaCenterBot via CallbackQuery
     """
-    if callback.message.chat.id not in User().all_user_ids():
+    if callback.message.chat.id not in UserDB().all_user_ids():
         if callback.message.chat and callback.message.chat.type in {'group', 'supergroup'}:
             await callback.answer('Groups not allowed.')
             await callback.edit_message_text(GROUPS_NOT_ALLOWED_MESSAGE)
@@ -53,6 +53,6 @@ async def stop_user_from_doing_anything_callback(_, callback: CallbackQuery):
 
 
 # Adds the users to the database if they do not already exist
-User().create_user_with_id(ADMIN)
+UserDB().create_user_with_id(ADMIN)
 for x in ALLOWED_USERS:
-    User().create_user_with_id(x)
+    UserDB().create_user_with_id(x)

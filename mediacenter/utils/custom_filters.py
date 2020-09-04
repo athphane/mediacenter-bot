@@ -4,7 +4,7 @@ from pyrogram.filters import *
 from pyrogram.types import Message
 
 from mediacenter import BOT_USERNAME
-from mediacenter.database.users import User
+from mediacenter.database.users import UserDB
 
 
 def command(commands: str or List[str], prefixes: str or List[str] = "/", case_sensitive: bool = False):
@@ -87,7 +87,15 @@ def callback_query(arg: str, payload=True):
 
 
 def allowed_users_filters(_, __, message: Message):
-    return message.from_user.id in User().all_user_ids()
+    return message.from_user.id in UserDB().all_user_ids()
 
 
 allowed_users = create(allowed_users_filters, "AllowedUsersFilter")
+
+
+def current_module(data):
+    async def func(flt, _, update: Message or CallbackQuery):
+        return flt.data == UserDB().current_module(update.from_user)
+
+    # "data" kwarg is accessed with "flt.data" above
+    return create(func, data=data)

@@ -4,11 +4,11 @@ import pyrogram.errors as pyro_errors
 from pyrogram import emoji
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
-from mediacenter.api_interfaces.Qbittorrent import TorrentClient as QBT
+from mediacenter.api_interfaces.qBittorrent.Qbittorrent import TorrentClient as QBT
 from mediacenter.mediacenterbot import MediaCenterBot
 from mediacenter.plugins.admin.help import add_command_help
-from mediacenter.utils import custom_filters
 from mediacenter.utils.converters import human_bytes, human_unix_time, time_delta
+from mediacenter.utils import custom_filters
 
 
 def make_torrent_buttons(torrent_hash):
@@ -45,7 +45,7 @@ async def send_torrent_list(_, message: Message):
         await message.reply(f"**You have no torrents!** {emoji.EXCLAMATION_MARK}")
 
 
-@MediaCenterBot.on_message(custom_filters.command("torrents"))
+@MediaCenterBot.on_message(custom_filters.current_module('qbt') & custom_filters.command("torrents"))
 async def all_torrents(_, message: Message, **kwargs):
     buttons = []
 
@@ -69,7 +69,7 @@ async def all_torrents(_, message: Message, **kwargs):
         await message.reply("Here is all the torrents available", reply_markup=InlineKeyboardMarkup(buttons))
 
 
-@MediaCenterBot.on_callback_query(custom_filters.callback_query('torrent'))
+@MediaCenterBot.on_callback_query(custom_filters.current_module('qbt') & custom_filters.callback_query('torrent'))
 async def torrent(_, callback: CallbackQuery, **kwargs):
     if kwargs.get('torrent_hash'):
         torrent_hash = kwargs.get('torrent_hash')
@@ -123,7 +123,7 @@ async def torrent(_, callback: CallbackQuery, **kwargs):
         await message.delete()
 
 
-@MediaCenterBot.on_message(custom_filters.command("add"))
+@MediaCenterBot.on_message(custom_filters.current_module('qbt') & custom_filters.command("add"))
 async def add_torrent(_, message: Message):
     try:
         torrent_link = message.command[1]
