@@ -60,9 +60,8 @@ def add_command_help(module_name: str, commands: list):
     else:
         command_dict = {}
 
-    for x in commands:
-        for y in x:
-            if y is not x:
-                command_dict[x[0]] = x[1]
+    for command in commands:
+        if command[0] not in command_dict:
+            command_dict[command[0]] = command[1]
 
     CMD_HELP[module_name] = command_dict
