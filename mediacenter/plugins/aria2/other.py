@@ -3,6 +3,7 @@ from pyrogram.types import Message
 
 from mediacenter import MediaCenterBot
 from mediacenter.api_interfaces.aria2p import Aria2p
+from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.utils import custom_filters
 
 
@@ -15,7 +16,7 @@ async def aria_purge(_, message: Message):
         await message.reply("Purge failed.")
 
 
-@MediaCenterBot.on_message(custom_filters.current_module('aria2') & custom_filters.command("stats"))
+@MediaCenterBot.on_message(custom_filters.current_module('aria2') & custom_filters.command(["stats", "stat"]))
 async def aria_stats(_, message: Message):
     output = Aria2p().stats()
 
@@ -31,3 +32,12 @@ async def aria_stats(_, message: Message):
     ac.add_row(["UL", output.upload_speed_string()])
 
     await message.reply(f"```{str(ac)}```")
+
+
+# Command help section
+add_command_help(
+    'aria2c', [
+        ['/purge', 'Purge all inactive items from Aria2c'],
+        ['/stats', 'Show quick overview of Aria2c'],
+    ]
+)
