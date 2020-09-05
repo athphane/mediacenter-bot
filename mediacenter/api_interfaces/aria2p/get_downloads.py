@@ -9,7 +9,15 @@ class GetDownloads(Aria2p):
         """
         return self.aria2.get_downloads()
 
-    def _get_of_status(self, status):
+    def get_download(self, gid):
+        """
+        Get download with corresponding gid from the client.
+        :param gid:
+        :return:
+        """
+        return self.aria2.get_download(gid)
+
+    def __get_of_status(self, status):
         """
         Get downloads with status
         :param status:
@@ -19,28 +27,28 @@ class GetDownloads(Aria2p):
 
     def get_completed(self):
         """
-        Get completed downloads from client
+        Get downloads with status 'complete'
         :return:
         """
-        return self._get_of_status('complete')
+        return self.__get_of_status('complete')
 
     def get_error_downloads(self):
         """
-        Get errored downloads from client
+        Get downloads with status 'error'
         :return:
         """
-        return self._get_of_status('error')
+        return self.__get_of_status('error')
 
     def get_removed(self):
         """
-        Get removed downloads from client
+        Get downloads with status 'removed'
         :return:
         """
-        return self._get_of_status('removed')
+        return self.__get_of_status('removed')
 
     def get_active(self):
         """
-        Get active downloads
+        Get downloads with status 'active'
         :return:
         """
-        return self._get_of_status('active')
+        return self.__get_of_status('active')

@@ -5,7 +5,6 @@ class AddDownload(Aria2p):
     def add_download(self, link):
         """
         Add a download to the client
-
         :param link:
         :return:
         """
