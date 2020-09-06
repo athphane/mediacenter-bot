@@ -11,17 +11,17 @@ def create_message(download: Download):
     progress = "No Progress"
 
     if download.download_speed >= 1 and download.status == 'active':
-        progress = f"{download.completed_length_string()}/{download.total_length_string()} ({download.progress_string()}) @ {download.download_speed_string()}\n\n"
+        progress = f"{download.completed_length_string()}/{download.total_length_string()} ({download.progress_string()}) @ {download.download_speed_string()}"
     elif download.status != 'active':
-        progress = f"{download.completed_length_string()}/{download.total_length_string()} ({download.progress_string()})\n\n"
+        progress = f"{download.completed_length_string()}/{download.total_length_string()} ({download.progress_string()})"
 
     msg = (
         "Title:\n"
-        f"{download.name}\n\n"
+        f"`{download.name}`\n\n"
         "Progress:\n"
-        f"{progress}"
+        f"`{progress}`\n\n"
         "ETA:\n"
-        f"{download.eta_string()}"
+        f"`{download.eta_string()}`"
     )
 
     return msg
