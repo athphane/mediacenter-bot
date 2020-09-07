@@ -4,7 +4,7 @@ from pyrogram.types import Message, CallbackQuery
 from mediacenter import ALLOWED_USERS, ADMIN
 from mediacenter.database.incidents import Incident
 from mediacenter.database.users import UserDB
-from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter import MediaCenterBot
 
 # CONSTANTS
 NOT_ALLOWED_MESSAGE = (f'**{emoji.FIRE} You are not allowed! {emoji.FIRE}\n'

@@ -2,7 +2,7 @@ from pyrogram import errors as pyro_errors
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 from mediacenter.api_interfaces.qBittorrent.Qbittorrent import TorrentClient as QBT
-from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter import MediaCenterBot
 from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.utils import custom_filters
 

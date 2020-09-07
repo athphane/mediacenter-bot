@@ -4,7 +4,7 @@ import time
 from pyrogram import emoji
 from pyrogram.types import Message
 
-from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter import MediaCenterBot
 from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.utils import custom_filters
 

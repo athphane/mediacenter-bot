@@ -2,7 +2,7 @@ import time
 
 from mediacenter import ADMIN
 from mediacenter.database.torrents import CompletedTorrents
-from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter import MediaCenterBot
 from mediacenter.scheduler_system.create_jobs import add_job
 
 

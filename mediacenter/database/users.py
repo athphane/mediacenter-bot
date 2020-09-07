@@ -28,6 +28,7 @@ class UserDB:
             "l_name": message.chat.last_name,
             "username": message.chat.username,
             'state': None,
+            'module': 'home',
         }
         self.users.insert_one(data)
         return self.find_user(message)

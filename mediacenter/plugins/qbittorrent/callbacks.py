@@ -1,6 +1,6 @@
 from pyrogram.types import CallbackQuery
 
-from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter import MediaCenterBot
 from mediacenter.plugins.qbittorrent.torrents import torrent, all_torrents
 from mediacenter.utils import custom_filters
 

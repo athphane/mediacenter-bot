@@ -5,7 +5,7 @@ from pyrogram import emoji
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 
 from mediacenter.api_interfaces.qBittorrent.Qbittorrent import TorrentClient as QBT
-from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter import MediaCenterBot
 from mediacenter.plugins.admin.help import add_command_help
 from mediacenter.utils.converters import human_bytes, human_unix_time, time_delta
 from mediacenter.utils import custom_filters
@@ -30,7 +30,7 @@ def make_torrent_buttons(torrent_hash):
     return buttons
 
 
-@MediaCenterBot.on_message(custom_filters.command("list"))
+@MediaCenterBot.on_message(custom_filters.current_module('qbt') & custom_filters.command("list"))
 async def send_torrent_list(_, message: Message):
     torrents = QBT().torrents()
     if not len(torrents) == 0:

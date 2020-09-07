@@ -1,7 +1,7 @@
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Message
 
 from mediacenter.api_interfaces.qBittorrent.Qbittorrent import TorrentClient as QBT
-from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter import MediaCenterBot
 from mediacenter.utils import custom_filters
 
 

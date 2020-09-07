@@ -1,7 +1,7 @@
 from prettytable import PrettyTable
 from pyrogram.types import Message
 
-from mediacenter.mediacenterbot import MediaCenterBot
+from mediacenter import MediaCenterBot
 from mediacenter.utils import custom_filters
 from mediacenter.utils.helpers import split_list
 
