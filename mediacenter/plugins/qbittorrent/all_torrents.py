@@ -18,7 +18,10 @@ async def controls(_, message: Message):
     )
 
 
-@MediaCenterBot.on_callback_query(custom_filters.current_module('qbt') & custom_filters.callback_query('pause_all', payload=False))
+@MediaCenterBot.on_callback_query(
+    custom_filters.current_module('qbt') &
+    custom_filters.callback_query('pause_all', payload=False)
+)
 async def pause_all(_, callback: CallbackQuery):
     try:
         await callback.answer("Pausing all torrents.")

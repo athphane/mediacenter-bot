@@ -28,8 +28,13 @@ LOGS = logging.getLogger(__name__)
 # Manually setting APScheduler logger level because it's not set by default.
 logging.getLogger('apscheduler').setLevel(logging.INFO)
 
+__version__ = '0.2.0'
+__author__ = 'Athfan Khaleel'
+
+MediaCenterBot = MediaCenterBot(__version__)
+
 # Read from config file
-name = MediaCenterBot().__class__.__name__.lower()
+name = str(MediaCenterBot).lower()
 config_file = f"{name}.ini"
 config = ConfigParser()
 config.read(config_file)
@@ -62,9 +67,3 @@ scheduler = AsyncIOScheduler()
 
 # Global Variables
 client = None
-
-# Extra details
-__version__ = '0.2.0'
-__author__ = 'Athfan Khaleel'
-
-MediaCenterBot = MediaCenterBot()

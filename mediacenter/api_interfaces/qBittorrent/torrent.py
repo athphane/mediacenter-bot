@@ -46,48 +46,13 @@ class Torrent:
         self.__load(data)
 
     def __load(self, data):
-        self.added_on = data['added_on']
-        self.amount_left = data['amount_left']
-        self.auto_tmm = data['auto_tmm']
-        self.category = data['category']
-        self.completed = data['completed']
-        self.completion_on = data['completion_on']
-        self.dl_limit = data['dl_limit']
-        self.dlspeed = data['dlspeed']
-        self.downloaded = data['downloaded']
-        self.downloaded_session = data['downloaded_session']
-        self.eta = data['eta']
-        self.f_l_piece_prio = data['f_l_piece_prio']
-        self.force_start = data['force_start']
-        self.hash = data['hash']
-        self.last_activity = data['last_activity']
-        self.magnet_uri = data['magnet_uri']
-        self.max_ratio = data['max_ratio']
-        self.max_seeding_time = data['max_seeding_time']
-        self.name = data['name']
-        self.num_complete = data['num_complete']
-        self.num_incomplete = data['num_incomplete']
-        self.num_leechs = data['num_leechs']
-        self.num_seeds = data['num_seeds']
-        self.priority = data['priority']
-        self.progress = data['progress']
-        self.ratio = data['ratio']
-        self.ratio_limit = data['ratio_limit']
-        self.save_path = data['save_path']
-        self.seeding_time_limit = data['seeding_time_limit']
-        self.seen_complete = data['seen_complete']
-        self.seq_dl = data['seq_dl']
-        self.size = data['size']
-        self.state = data['state']
-        self.super_seeding = data['super_seeding']
-        self.tags = data['tags']
-        self.time_active = data['time_active']
-        self.total_size = data['total_size']
-        self.tracker = data['tracker']
-        self.up_limit = data['up_limit']
-        self.uploaded = data['uploaded']
-        self.uploaded_session = data['uploaded_session']
-        self.upspeed = data['upspeed']
+        """
+        Achieves the same thing as setting them one by one like before
+        :param data:
+        :return:
+        """
+        for key in data:
+            setattr(self, key, data[key])
 
     def __repr__(self):
         return f"{self.name}"

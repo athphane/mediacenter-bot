@@ -1,5 +1,5 @@
 import re
-from typing import List
+from typing import List, Union
 
 from ..RawSonarr import RawSonarrAPI
 
@@ -23,8 +23,8 @@ class Show:
         self.previousAiring = None
         self.network = None
         self.airTime = None
-        self.images: List[SonarrImage] = None
-        self.seasons: List[SonarrSeason] = None
+        self.images: Union[List[SonarrImage], None] = None
+        self.seasons: Union[List[SonarrSeason], None] = None
         self.year = None
         self.path = None
         self.profileId = None

@@ -1,0 +1,50 @@
+{
+    "title": "Lovecraft Country", 
+    "alternateTitles": [
+        {"title": "Territorio Lovecraft", "seasonNumber": -1}
+    ], 
+    "sortTitle": "lovecraft country", 
+    "seasonCount": 1, 
+    "totalEpisodeCount": 3, 
+    "episodeCount": 3, 
+    "episodeFileCount": 0, 
+    "sizeOnDisk": 0, "status": "continuing",
+    "overview": "Based on Matt Ruff\"s novel of the same name, Lovecraft Country follows Atticus Freeman as he meets up with his friend Letitia and his uncle George to embark on a road trip across 1950s Jim Crow America in search of his missing father. This begins a struggle to survive and overcome both the racist terrors of white America and the terrifying monsters that could be ripped from a Lovecraft paperback.", 
+    "nextAiring": "2020-09-07T01:00:00Z", 
+    "previousAiring": "2020-08-31T01:00:00Z", 
+    "network": "HBO", 
+    "airTime": "21:00", 
+    "images": [
+        {"coverType": "banner", "url": "/MediaCover/42/banner.jpg?lastWrite=637344070866798510"}, 
+        {"coverType": "poster", "url": "/MediaCover/42/poster.jpg?lastWrite=637344070874278650"}, 
+        {"coverType": "fanart", "url": "/MediaCover/42/fanart.jpg?lastWrite=637344070884318830"}
+    ], 
+    "seasons": [
+        {"seasonNumber": 1, "monitored": true, "statistics": {
+            "nextAiring": "2020-09-07T01:00:00Z", "previousAiring": "2020-08-31T01:00:00Z", "episodeFileCount": 0, "episodeCount": 0, "totalEpisodeCount": 3, "sizeOnDisk": 0, "percentOfEpisodes": 0.0}
+        }
+    ], 
+    "year": 2020, 
+    "path": "/tmp/Lovecraft Country", 
+    "profileId": 1, 
+    "seasonFolder": true,
+    "monitored": true,
+    "useSceneNumbering": true,
+    "runtime": 58, 
+    "tvdbId": 357864, 
+    "tvRageId": 0, 
+    "tvMazeId": 28893, 
+    "firstAired": "2020-08-15T19:00:00Z", 
+    "lastInfoSync": "2020-09-06T09:47:12.34849Z", 
+    "seriesType": "standard", 
+    "cleanTitle": "lovecraftcountry", 
+    "imdbId": "tt6905686", 
+    "titleSlug": "lovecraft-country", 
+    "certification": "TV-MA", 
+    "genres": ["Drama", "Horror"], 
+    "tags": [], 
+    "added": "2020-08-30T17:58:05.110687Z", 
+    "ratings": {"votes": 0, "value": 0.0}, 
+    "qualityProfileId": 1, 
+    "id": 42
+}

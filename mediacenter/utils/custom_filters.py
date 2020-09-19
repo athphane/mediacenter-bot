@@ -99,3 +99,11 @@ def current_module(data):
 
     # "data" kwarg is accessed with "flt.data" above
     return create(func, data=data)
+
+
+def module_command(module, cmd, prefix='/'):
+    return current_module(module) & command(cmd, prefix)
+
+
+def module_callback(module, callback, payload=True):
+    return current_module(module) & callback_query(callback, payload)

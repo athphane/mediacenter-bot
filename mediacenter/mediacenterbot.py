@@ -1,20 +1,25 @@
 import os
 import re
+import sys
 import uuid
 from configparser import ConfigParser
 from typing import Union
 from typing.io import BinaryIO
 
+import psutil
 import requests
 from pyrogram import Client
 from pyrogram import types
+from pyrogram.errors import MessageNotModified
+from pyrogram.raw.all import layer
 from pyrogram.types import InputMediaPhoto, Message
 
 
 class MediaCenterBot(Client):
-    def __init__(self):
+    def __init__(self, version='0.0.0'):
         name = self.__class__.__name__.lower()
         config_file = f"{name}.ini"
+        self.version = version
 
         config = ConfigParser()
         config.read(config_file)
@@ -28,13 +33,50 @@ class MediaCenterBot(Client):
             workdir="../"
         )
 
+    def __str__(self):
+        """
+        String representation of the class object
+        """
+        return self.__class__.__name__
+
     async def start(self):
+        """
+        Start function
+        """
         await super().start()
-        print(f"{self.__class__.__name__} started. Hi.")
+        me = await self.get_me()
+        print(f"{self.__class__.__name__} v{self.version} (Layer {layer}) started on @{me.username}.\n"
+              f"Lets start managing your media server!")
 
     async def stop(self, *args):
+        """
+        Stop function
+        :param args:
+        """
         await super().stop()
         print(f"{self.__class__.__name__} stopped. Bye.")
+
+    async def restart(self, git_update=False, pip=False, *args):
+        """
+        Restart the bot for reals.
+        :return:
+        """
+        await self.stop()
+
+        try:
+            c_p = psutil.Process(os.getpid())
+            for handler in c_p.open_files() + c_p.connections():
+                os.close(handler.fd)
+        except Exception as c_e:
+            print(c_e)
+
+        if git_update:
+            os.system('git pull')
+        if pip:
+            os.system('pip install -r requirements.txt')
+
+        os.execl(sys.executable, sys.executable, '-m', self.__class__.__name__.lower())
+        sys.exit()
 
     @staticmethod
     def save_link_to_file(link):
@@ -76,6 +118,10 @@ class MediaCenterBot(Client):
             progress: callable = None,
             progress_args: tuple = ()
     ) -> Union["types.Message", None]:
+        """
+        Send photo function that downloads the photo before it sends the photo.
+        :return: types.Message or None
+        """
         photo = self.save_link_to_file(photo)
 
         msg = await super().send_photo(chat_id, photo, file_ref=file_ref, parse_mode=parse_mode,
@@ -97,18 +143,26 @@ class MediaCenterBot(Client):
             message: Message,
             media: str,
     ) -> "types.Message":
+        """
+        Edit photo function that downloads the photo before photo gets edited.
+        :return: types.Message
+        """
         media = self.save_link_to_file(media)
 
-        msg = await super().edit_message_media(
-            message.chat.id,
-            message.message_id,
-            InputMediaPhoto(media, caption=message.caption),
-            reply_markup=message.reply_markup,
-        )
+        msg = types.Message
+        try:
+            msg = await super().edit_message_media(
+                message.chat.id,
+                message.message_id,
+                InputMediaPhoto(media, caption=message.caption),
+                reply_markup=message.reply_markup,
+            )
+        except MessageNotModified:
+            pass
 
         try:
             os.remove(media)
         except:
             print("Error removing file")
-        finally:
-            return msg
+
+        return msg

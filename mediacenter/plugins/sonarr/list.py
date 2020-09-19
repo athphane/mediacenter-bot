@@ -14,7 +14,7 @@ def get_buttons():
     return buttons
 
 
-@MediaCenterBot.on_message(custom_filters.current_module('sonarr') & custom_filters.command("list"))
+@MediaCenterBot.on_message(custom_filters.module_command('sonarr', 'list'))
 async def sonarr_list(_, message: Message):
     await message.reply("Here are all the shows.", reply_markup=InlineKeyboardMarkup(get_buttons()))
 

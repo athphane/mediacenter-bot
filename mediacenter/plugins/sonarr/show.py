@@ -28,7 +28,7 @@ def create_buttons(show):
     ])
 
 
-@MediaCenterBot.on_callback_query(custom_filters.current_module('sonarr') & custom_filters.callback_query('show'))
+@MediaCenterBot.on_callback_query(custom_filters.module_callback('sonarr', 'show'))
 async def sonarr_view_show(_, callback: CallbackQuery):
     show_id = callback.payload
     await callback.answer("Fetching...")
@@ -41,10 +41,7 @@ async def sonarr_view_show(_, callback: CallbackQuery):
     )
 
 
-@MediaCenterBot.on_callback_query(
-    custom_filters.current_module('sonarr') &
-    custom_filters.callback_query('photo_change')
-)
+@MediaCenterBot.on_callback_query(custom_filters.module_callback('sonarr', 'photo_change'))
 async def sonarr_update_photo(_, callback: CallbackQuery):
     show_id, image_type = callback.payload.split('=')
     await callback.answer("Changing media...")
